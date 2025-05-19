@@ -6,29 +6,86 @@
     <meta name="viewpoint" content="width=device-width, initial-scale=1.0" />
     <title>Pomodoro Garden</title>
   <link rel="stylesheet" href="style.css" />
-  
+   <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+    import { 
+      getAuth, 
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      updateProfile
+    } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+    
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCiPV6KfHOKiV7Sgqp0EJzo5GjbnlTwOyQ",
+      authDomain: "pomodoro-garden-d8a0e.firebaseapp.com",
+      projectId: "pomodoro-garden-d8a0e",
+      storageBucket: "pomodoro-garden-d8a0e.appspot.com",
+      messagingSenderId: "669728207501",
+      appId: "1:669728207501:web:4ee7ee5feca6f2cf2868c4",
+      measurementId: "G-SDZN9QN2T0"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    
+    // Make auth available globally
+    window.auth = auth;
+    window.firebaseAuth = {
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      updateProfile
+    };
+  </script>
+
 </head>
-<body>
+<body class="index-page">
     <h1>Pomodoro garden</h1>
     <div class="custom-time">
     <label for="customMinutes">Enter minutes:</label>
     <input type="number" id="customMinutes" min="1" placeholder="e.g. 25" />
-    <button onclick="setCustomTime()">Set Timer</button>
+    <button id="customTimeButton" onclick="setCustomTime()">Set Timer</button>
   </div>
 
   <div id="timer">
     <span id="minutes">25</span><span id='colon'>:</span><span id="seconds">00</span>
   </div>
 
+<header class="login-header">
+  <div class="buttons-container">
+    <!-- Logged out state -->
+    <div id="loggedOutButtons">
+      <button id="loginBtn" class="login-btn">Log in</button>
+      <button id="signupBtn" class="signup-btn">Sign up</button>
+      <a href="statistic.html" id="statistics">Statistic</a>
+    </div>
+    
+    <!-- Logged in state (hidden by default) -->
+    <div id="loggedInUser" style="display: none;">
+      <span id="usernameDisplay" class="username-display"></span>
+      <button id="logoutBtn" class="logout-btn">Log out</button>
+      <a href="statistic.html" id="statistics">Statistic</a>
+    </div>
+  </div>
+  
+  <div class="about-container">
+    <button data-open-modal id="aboutApp">About app</button>
+  </div>
+  <div class="button-wrapper">
+    <button data-open-inventory id='invent-button'>Inventory</button>
+  </div>
+</header>
+
+
   <div class="controls">
     <button onclick="startTimer()">Start</button>
     <button onclick="pauseTimer()">Pause</button>
     <button onclick="resetTimer()">Reset</button>
   </div>
-
-    <script src="script.js"></script>
      <h2>My garden</h2>
-<div id="garden">
+  <div id="garden">
  <div class="solid-grid">
   <div class="tile"></div>
   <div class="tile"></div> 
@@ -97,12 +154,83 @@
 
 </div>
 
+  </div>
+  <div id="inventoryModal" class="modal">
+    <span class="close">&times;</span>
+
+    
+    <h2>Inventory</h2>
+    <div id="plant-grid"></div>
+  </div>
+  
+
+<div id="descriptionModal" class="modal">
+      <span class="close">&times;</span>
+      <h2>For what is this app:</h2>
+      <ul>
+        <li>Pomodoro garden is specified pomodoro timer</li>
+        <li>It helps you to focus on your work</li>
+        <li>It has a garden where you can grow plants</li>
+        <li>It will have statistic page where you can track your achievments</li>
+        <li>It will have friends button to share your beatiful garden and results</li>
+        <li>Enjoy my app!</li>
+      </ul>
+      <h3>P.S. explore memorize internalize! -vlat</h3>
+
 </div>
-<div id="inventory">
-  <h2>Inventory</h2>
-  <div id="plant-grid">
+
+
+
+<!--LOG IN MODAL-->
+<div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm">
+            <label for="login-email">Email:</label>
+            <input type="email" id="login-email" required />
+
+            <label for="login-password">Password:</label>
+            <input type="password" id="login-password" required />
+            <button type="submit" class="submit-btn">Login</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- SIGN UP MODAL -->
+<div id="signupModal" class="modal" style="display: none;">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2>Sign Up</h2>
+    <form id="signupForm">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required />
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="signup-email" name="email" required />
+      </div>
+      <div class="form-group">
+        <label for="signup-password">Password:</label>
+        <input type="password" id="signup-password" name="password" required />
+      </div>
+      <div class="form-group">
+        <label for="confirm-password">Confirm Password:</label>
+        <input type="password" id="confirm-password" name="confirm-password" required />
+        <div id="password-error" class="error-message" style="color:red; display:none;">Passwords don't match!</div>
+      </div>
+      <button type="submit" class="submit-btn">Create Account</button>
+    </form>
   </div>
 </div>
-  </body>
+
+
+
+
+<script src="script.js"></script>
+<script src="login.js"></script>
+</body>
 
 </html>

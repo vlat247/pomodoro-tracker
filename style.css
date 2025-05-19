@@ -1,9 +1,9 @@
-body {
+body.index-page {
     height: 100vh;
     font-family: "Press Start 2P", sans-serif;
     text-align: center;
     margin-top: 20px;
-    background-image: url(forest_background.png);
+    background-image: url(graphics/forest_background.png);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -17,8 +17,9 @@ body {
    
 }
 
+
 .controls button {
-      font-size: 28px;
+      font-size: 22px;
   font-weight: bold;
   font-family: "Press Start 2P", sans-serif;
 }
@@ -30,9 +31,10 @@ body {
 
 button {
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 20px;
     margin: 10px;
     cursor: pointer;
+    font-family: "Press Start 2P", sans-serif;
 
 }
 #minutes,
@@ -50,6 +52,8 @@ button {
   gap: 1px;
   margin: 20px auto;
   width: fit-content;
+  transform: rotateX(45deg) rotateZ(45deg); 
+  transform-style: preserve-3d;
 }
 
 .tile {
@@ -61,8 +65,271 @@ button {
 }
 
 
+#plant-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 40px);
+  grid-gap: 8px;
+}
 
-#inventory {
+.plant-icon {
+  width: 30px;
+  height: 40px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 6px;
+  cursor: grab;
+  transform: rotate(-45deg) skewY(0deg);
+}
+
+.plant-icon.flower {
+  background-image: url('graphics/flower.png');
+}
+
+.plant-icon.cactus {
+  background-image: url('graphics/cactus.png');
+}
+.plant-icon.tree {
+  background-image: url('graphics/tree.png');
+}
+.plant-icon.bush {
+  background-image: url('graphics/bush.png');
+}
+.plant-icon.flower2 {
+  background-image: url('graphics/flower2.png');
+}
+
+body.statistic-page {
+  height: 100vh;
+  background-image: url(graphics/Preview_143.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  font-family: "Press Start 2P", sans-serif;
+  text-align: center;
+}
+
+#back-to-home {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  font-family: "Press Start 2P", sans-serif;
+  font-size: 12px;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 6px 12px;
+  border: 2px solid #bef0be;
+  border-radius: 4px;
+}
+
+#register-link {
+  color: #00ffff;
+  text-decoration: underline;
+  font-size: 14px;
+  cursor: pointer;
+}
+.login-btn {
+  position: absolute;
+  top: 11px;
+  right: 170px;
+  font-family: "Press Start 2P", sans-serif;
+  font-size: 14px;
+  color: #5dac09;
+  padding: 8px 12px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 2px solid #3191059c;
+  border-radius: 4px;
+  z-index: 1000;
+}
+.signup-btn {
+  position: absolute;
+  top: 11px ;
+  right: 287px;
+  font-family: "Press Start 2P", sans-serif;
+  font-size: 14px;
+  color: #5dac09;
+  padding: 8px 12px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 2px solid #3191059c;
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+#statistics {
+ position: absolute;
+ top: 20px;
+ right: 20px;
+
+  font-family: "Press Start 2P", sans-serif;
+  font-size: 14px;
+  color: #5dac09;
+  text-decoration: none;
+  padding: 8px 12px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 2px solid #3191059c;
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+/* The modal background for login and registration*/
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.close:hover {
+    color: black;
+}
+
+/* Form styling */
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.submit-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.submit-btn:hover {
+    background-color: #45a049;
+}
+
+/* Design for the registration*/
+.login-link {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 14px;
+}
+.login-link a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+.login-link a:hover {
+  text-decoration: underline;
+}
+#descriptionModal ul {
+  text-align: left;
+}
+#descriptionModal h3 {
+  margin-bottom: 0;
+  text-align: bottom;
+}
+.about-container {
+  padding: 10px 20px;
+  right: 20px;
+  bottom: 20px;
+  position: fixed;
+}
+#aboutApp {
+  font-family: "Press Start 2P", sans-serif;
+  font-size: 14px;
+  color: #5dac09;
+  text-decoration: none;
+  padding: 8px 12px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 2px solid #3191059c;
+  border-radius: 4px;
+}
+
+
+/* Password mismatch warning */
+.password-mismatch {
+  color: #f44336;
+  font-size: 13px;
+  margin-top: 5px;
+  display: none;
+}
+
+/*MODAL FOR ABOUT THIS APP*/
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0);
+}
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 800px;
+  border-radius: 8px;
+  position: relative;
+}
+.close {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close:hover {
+  color: #f44336;
+}
+body.modal-open {
+  overflow: hidden;
+}
+/*MODAL FOR INVENTORY*/
+
+
+.close {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close:hover {
+  color: #f44336;
+}
+body.modal-open {
+  overflow: hidden;
+}
+#inventoryModal {
   position: fixed;
   top: 0;
   left: 0;
@@ -75,29 +342,73 @@ button {
   font-family: "Press Start 2P", sans-serif;
   z-index: 1000;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-right: 4px solid #103213;
 }
 
-#inventory h2 {
+#inventoryModal h2 {
   font-size: 12px;
   margin-bottom: 16px;
-  color: #bef0be;
+  color: #31a131;
 }
 
-#plant-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 40px);
-  grid-gap: 8px;
+#invent-button {
+  display: block;
 }
 
-.plant-icon {
-  width: 40px;
-  height: 40px;
-  background-image: url('flower.png'); 
-  background-size: cover;
-  background-position: center;
-  border-radius: 6px;
-  cursor: grab;
+#invent-button.hidden {
+  display: none;
+}
+
+/* Position the inventory button */
+#invent-button {
+  position: relative; /* Changed from relative to fixed */
+  top: -12px;
+  left: -12px;
+  font-family: "Press Start 2P", sans-serif;
+  font-size: 14px;
+  color: #5dac09;
+  text-decoration: none;
+  padding: 8px 12px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 2px solid #3191059c;
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+.button-wrapper {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 999;
+}
+/* LOG OUT AND USERNAME*/
+/* Logged in user styles */
+#loggedInUser {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.username-display {
+  color: #5dac09;
+  font-size: 14px;
+  padding: 8px 12px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 2px solid #3191059c;
+  border-radius: 4px;
+}
+
+.logout-btn {
+  font-family: "Press Start 2P", sans-serif;
+  font-size: 14px;
+  color: #ff5555;
+  padding: 8px 12px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 2px solid #ff55559c;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  color: #ff3333;
+  border-color: #ff3333;
 }
