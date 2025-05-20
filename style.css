@@ -17,6 +17,9 @@ body.index-page {
    
 }
 
+body {
+  overflow: hidden;
+}
 
 .controls button {
       font-size: 22px;
@@ -129,8 +132,8 @@ body.statistic-page {
 }
 .login-btn {
   position: absolute;
-  top: 11px;
-  right: 170px;
+  top: 50px;
+  right: 20px;
   font-family: "Press Start 2P", sans-serif;
   font-size: 14px;
   color: #5dac09;
@@ -142,8 +145,8 @@ body.statistic-page {
 }
 .signup-btn {
   position: absolute;
-  top: 11px ;
-  right: 287px;
+  top: 10px ;
+  right: 20px;
   font-family: "Press Start 2P", sans-serif;
   font-size: 14px;
   color: #5dac09;
@@ -157,7 +160,7 @@ body.statistic-page {
 #statistics {
  position: absolute;
  top: 20px;
- right: 20px;
+ right: 160px;
 
   font-family: "Press Start 2P", sans-serif;
   font-size: 14px;
@@ -396,7 +399,8 @@ body.modal-open {
   border: 2px solid #3191059c;
   border-radius: 4px;
   top: 20px;
-  right: 20px;
+  right: 320px;
+  position: absolute;
 }
 
 .logout-btn {
@@ -408,11 +412,17 @@ body.modal-open {
   border: 2px solid #ff55559c;
   border-radius: 4px;
   cursor: pointer;
-  top: px;
+  top: 11px;
   right: 20px;
+  position: absolute;
+
 }
 
 .logout-btn:hover {
   color: #ff3333;
   border-color: #ff3333;
 }
+
+
+
+
