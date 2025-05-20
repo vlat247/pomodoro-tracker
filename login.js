@@ -1,4 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+import { getFirestore } from "firebase/firestore";    
     import { 
       getAuth, 
       createUserWithEmailAndPassword,

@@ -344,7 +344,7 @@ body.modal-open {
   box-shadow: 4px 0 8px rgba(0, 0, 0, 0.7);
   font-family: "Press Start 2P", sans-serif;
   z-index: 1000;
-  display: flex;
+  display: none;
 }
 
 #inventoryModal h2 {
