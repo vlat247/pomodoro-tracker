@@ -1,13 +1,35 @@
-// firebase initialization
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+    import { 
+      getAuth, 
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      updateProfile
+    } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+    
+    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
 
-const firebaseConfig = {
-  // Your Firebase config
-};
+    const firebaseConfig = {
+      apiKey: "AIzaSyCiPV6KfHOKiV7Sgqp0EJzo5GjbnlTwOyQ",
+      authDomain: "pomodoro-garden-d8a0e.firebaseapp.com",
+      projectId: "pomodoro-garden-d8a0e",
+      storageBucket: "pomodoro-garden-d8a0e.appspot.com",
+      messagingSenderId: "669728207501",
+      appId: "1:669728207501:web:4ee7ee5feca6f2cf2868c4",
+      measurementId: "G-SDZN9QN2T0"
+    };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    
+    // Make auth available globally
+    window.auth = auth;
+    window.firebaseAuth = {
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      updateProfile
+    };
+
 
 document.addEventListener('DOMContentLoaded', function() {
   // Get elements
@@ -95,28 +117,27 @@ document.addEventListener('DOMContentLoaded', function() {
       alert("Login error: " + err.message);
     }
   });
+});
+onAuthStateChanged(auth, (user) => {
+  const loggedOutButtons = document.getElementById('loggedOutButtons');
+  const loggedInUser = document.getElementById('loggedInUser');
+  const usernameDisplay = document.getElementById('usernameDisplay');
 
-  // Auth state listener
-  onAuthStateChanged(auth, (user) => {
-    const loggedOutButtons = document.getElementById('loggedOutButtons');
-    const loggedInUser = document.getElementById('loggedInUser');
-    const usernameDisplay = document.getElementById('usernameDisplay');
-    
-    console.log("Auth state changed. User:", user);
-    
-    if (user) {
-      loggedOutButtons.style.display = 'none';
-      loggedInUser.style.display = 'flex';
-      usernameDisplay.textContent = user.displayName || user.email.split('@')[0];
+  if (user) {
+    console.log("User is logged in:", user);
+    loggedOutButtons.style.display = 'none';
+    loggedInUser.style.display = 'flex'; // or 'block', depending on your layout
+    usernameDisplay.textContent = user.displayName || user.email.split('@')[0];
 
-      document.getElementById('logoutBtn').addEventListener('click', () => {
-        signOut(auth).catch((error) => {
-          console.error('Logout error:', error);
-        });
+    // Logout button
+    document.getElementById('logoutBtn')?.addEventListener('click', () => {
+      signOut(auth).catch((error) => {
+        console.error('Logout error:', error);
       });
-    } else {
-      loggedOutButtons.style.display = 'block';
-      loggedInUser.style.display = 'none';
-    }
-  });
+    });
+  } else {
+    console.log("User is logged out.");
+    loggedOutButtons.style.display = 'block';
+    loggedInUser.style.display = 'none';
+  }
 });

@@ -395,6 +395,8 @@ body.modal-open {
   background-color: rgba(0, 0, 0, 0.6);
   border: 2px solid #3191059c;
   border-radius: 4px;
+  top: 20px;
+  right: 20px;
 }
 
 .logout-btn {
@@ -406,6 +408,8 @@ body.modal-open {
   border: 2px solid #ff55559c;
   border-radius: 4px;
   cursor: pointer;
+  top: px;
+  right: 20px;
 }
 
 .logout-btn:hover {

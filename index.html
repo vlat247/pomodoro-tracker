@@ -6,39 +6,6 @@
     <meta name="viewpoint" content="width=device-width, initial-scale=1.0" />
     <title>Pomodoro Garden</title>
   <link rel="stylesheet" href="style.css" />
-   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-    import { 
-      getAuth, 
-      createUserWithEmailAndPassword,
-      signInWithEmailAndPassword,
-      updateProfile
-    } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
-    
-    import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyCiPV6KfHOKiV7Sgqp0EJzo5GjbnlTwOyQ",
-      authDomain: "pomodoro-garden-d8a0e.firebaseapp.com",
-      projectId: "pomodoro-garden-d8a0e",
-      storageBucket: "pomodoro-garden-d8a0e.appspot.com",
-      messagingSenderId: "669728207501",
-      appId: "1:669728207501:web:4ee7ee5feca6f2cf2868c4",
-      measurementId: "G-SDZN9QN2T0"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    
-    // Make auth available globally
-    window.auth = auth;
-    window.firebaseAuth = {
-      createUserWithEmailAndPassword,
-      signInWithEmailAndPassword,
-      updateProfile
-    };
-  </script>
 
 </head>
 <body class="index-page">
@@ -230,7 +197,7 @@
 
 
 <script src="script.js"></script>
-<script src="login.js"></script>
+<script type="module" src="login.js"></script>
 </body>
 
 </html>
