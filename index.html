@@ -10,7 +10,7 @@
 </head>
 <body class="index-page">
     <h1>Pomodoro garden</h1>
-    <div class="custom-time">
+  <div class="custom-time">
     <label for="customMinutes">Enter minutes:</label>
     <input type="number" id="customMinutes" min="1" placeholder="e.g. 25" />
     <button id="customTimeButton" onclick="setCustomTime()">Set Timer</button>
@@ -46,7 +46,7 @@
 
 
   <div class="controls">
-    <button onclick="startTimer()">Start</button>
+    <button id="startTimeBtn">Start</button>
     <button onclick="pauseTimer()">Pause</button>
     <button onclick="resetTimer()">Reset</button>
   </div>
@@ -196,7 +196,7 @@
 
 
 <script src="script.js"></script>
-<script type="module" src="login.js"></script>
+<script type="module" src="login.js" defer></script>
 </body>
 
 </html>
