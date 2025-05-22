@@ -423,6 +423,11 @@ body.modal-open {
   border-color: #ff3333;
 }
 
-
-
-
+/* STYLE FOR THE CALENDAR*/
+#calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  max-width: 500px;
+  margin-top: 20px;
+}

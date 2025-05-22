@@ -132,6 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Login form
   document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
+    
     e.preventDefault();
     try {
       await firebaseAuth.signInWithEmailAndPassword(
@@ -198,7 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (user) {
       document.getElementById("loggedOutButtons").style.display = "none";
       document.getElementById("loggedInUser").style.display = "block";
-      document.getElementById("usernameDisplay").textContent = user.email;
+      document.getElementById("usernameDisplay").textContent = user.displayName;
     } else {
       document.getElementById("loggedOutButtons").style.display = "block";
       document.getElementById("loggedInUser").style.display = "none";
