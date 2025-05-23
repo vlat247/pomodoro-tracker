@@ -15,33 +15,65 @@ onAuthStateChanged(auth, async (user) => {
       focusData[doc.id] = doc.data().minutesFocused;
     });
 
-    renderCalendar(focusData);
+    updateCalendar(focusData);
   }
 });
 
-function renderCalendar(focusData) {
-  const calendar = document.getElementById("calendar");
-  calendar.innerHTML = "";
 
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = today.getMonth(); // 0 = Jan, 1 = Feb...
+//caledar
+const monthYearElement = document.getElementById("monthYear");
+const datesElement = document.getElementById('dates');
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
 
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
+let currentDate = new Date();
 
-  for (let day = 1; day <= daysInMonth; day++) {
-    const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-    const minutes = focusData[dateStr] || 0;
+const updateCalendar = () => {
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+  const firstDay = new Date(currentYear, currentMonth, 0);
+  const lastDay = new Date(currentYear, currentMonth + 1, 0);
+  const totalDays = lastDay.getDate();
+  const firstDayIndex = firstDay.getDay();
+  const lastDayIndex = lastDay.getDay(); 
 
-    const div = document.createElement("div");
-    div.classList.add("calendar-day");
+  const monthYearString = currentDate.toLocaleString('default', { month: 'long', year: 'numeric' });
+  monthYearElement.textContent = monthYearString;
 
-    // Add class based on focus level
-    if (minutes > 60) div.classList.add("high");
-    else if (minutes > 30) div.classList.add("medium");
-    else div.classList.add("low");
+  let datesHtml = "";
 
-    div.innerHTML = `<strong>${day}</strong><br>${minutes} min`;
-    calendar.appendChild(div);
+  for (let i = firstDayIndex - 1; i >= 0; i--) {
+  const prevDate = new Date(currentYear, currentMonth, -i);
+  datesHtml += `<div class="date inactive">${prevDate.getDate()}</div>`;
   }
+
+  for (let i = firstDayIndex - 1; i >= 0; i--) {
+  const prevDate = new Date(currentYear, currentMonth, -i);
+  datesHtml += `<div class="date inactive">${prevDate.getDate()}</div>`;
+  }
+
+  for(let i = 1; i<=totalDays; i++) {
+    const date = new Date(currentYear, currentMonth, i);
+    const activeClass = date.toDateString() === new Date().
+    toDateString() ? 'active' : '';
+    datesHtml += `<div class="date ${activeClass}">${i}</div>`;
+  }
+
+  for(let i = 1; i <= 7 - lastDayIndex; i++) {
+    const nextDate = new Date(currentYear, currentMonth + 1, i);
+    datesHtml += `<div class="date inactive">${nextDate.getDate()}</div>`;
+  }
+
+  datesElement.innerHTML = datesHtml;
+
 }
+
+prevBtn.addEventListener("click", () => {
+  currentDate.setMonth(currentDate.getMonth() -1);
+  updateCalendar();
+})
+
+nextBtn.addEventListener("click", () => {
+  currentDate.setMonth(currentDate.getMonth() + 1);
+  updateCalendar();
+})

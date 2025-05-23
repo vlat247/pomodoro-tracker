@@ -132,7 +132,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Login form
   document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
-    
     e.preventDefault();
     try {
       await firebaseAuth.signInWithEmailAndPassword(
@@ -277,3 +276,4 @@ function saveDailyFocus(minutes) {
     .then(() => console.log("Daily focus time saved!"))
     .catch((error) => console.error("Error saving focus time:", error));
 }
+

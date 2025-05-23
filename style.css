@@ -1,5 +1,5 @@
 body.index-page {
-    height: 100vh;
+    height: 100%;
     font-family: "Press Start 2P", sans-serif;
     text-align: center;
     margin-top: 20px;
@@ -17,8 +17,11 @@ body.index-page {
    
 }
 
-body {
+html, body.index-page {
+  height: 100%;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 .controls button {
@@ -101,28 +104,8 @@ button {
   background-image: url('graphics/flower2.png');
 }
 
-body.statistic-page {
-  height: 100vh;
-  background-image: url(graphics/Preview_143.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  font-family: "Press Start 2P", sans-serif;
-  text-align: center;
-}
 
-#back-to-home {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  font-family: "Press Start 2P", sans-serif;
-  font-size: 12px;
-  color: #ffffff;
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 6px 12px;
-  border: 2px solid #bef0be;
-  border-radius: 4px;
-}
+
 
 #register-link {
   color: #00ffff;
@@ -423,11 +406,4 @@ body.modal-open {
   border-color: #ff3333;
 }
 
-/* STYLE FOR THE CALENDAR*/
-#calendar {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 10px;
-  max-width: 500px;
-  margin-top: 20px;
-}
+
