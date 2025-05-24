@@ -15,6 +15,23 @@ body.statistic-page {
   display: flex;
 }
 
+.dashboard-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  padding: 50px;
+  font-family: "Press Start 2P", sans-serif;
+}
+
+.stats-section {
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: left;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  width: 500px;
+}
 .calendar {
   width: 430px;
   height: auto;

@@ -147,26 +147,29 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 onAuthStateChanged(auth, (user) => {
+  const logoutBtn = document.getElementById('logoutBtn');
   const loggedOutButtons = document.getElementById('loggedOutButtons');
   const loggedInUser = document.getElementById('loggedInUser');
-  const usernameDisplay = document.getElementById('usernameDisplay');
 
   if (user) {
-    console.log("User is logged in:", user);
-    loggedOutButtons.style.display = 'none';
-    loggedInUser.style.display = 'flex'; // or 'block', depending on your layout
-    usernameDisplay.textContent = user.displayName || user.email.split('@')[0];
-
-    // Logout button
-    document.getElementById('logoutBtn')?.addEventListener('click', () => {
-      signOut(auth).catch((error) => {
-        console.error('Logout error:', error);
+    // Only attach logout event if the button exists
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        signOut(auth).catch((error) => {
+          console.error('Logout error:', error);
+        });
       });
-    });
+    }
   } else {
     console.log("User is logged out.");
-    loggedOutButtons.style.display = 'block';
-    loggedInUser.style.display = 'none';
+
+    // Only update display if these elements exist
+    if (loggedOutButtons) {
+      loggedOutButtons.style.display = 'block';
+    }
+    if (loggedInUser) {
+      loggedInUser.style.display = 'none';
+    }
   }
 });
 
@@ -176,7 +179,7 @@ let countdownInterval;
 let sessionStartTime = null;
 let remainingSeconds = 0;
 
-// 👂 When page is loaded
+//  When page is loaded
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("startTimeBtn").addEventListener("click", () => {
     const minutes = parseInt(document.getElementById("minutes").textContent);
