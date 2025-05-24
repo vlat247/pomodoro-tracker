@@ -1,3 +1,10 @@
+html, body {
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
 body.statistic-page {
   height: 100vh;
   background: url(/graphics/Preview_143.jpg) center center / cover no-repeat;
@@ -14,7 +21,7 @@ body.statistic-page {
   display: flex;
   flex-direction: column;
   padding: 10px;
-  background: #ddd;
+  background: #ffffff;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }

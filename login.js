@@ -223,6 +223,8 @@ function startTimer(minutes) {
       const durationMinutes = Math.round((sessionEndTime - sessionStartTime) / 60000);
       saveFocusSession(sessionStartTime, sessionEndTime, durationMinutes);
       saveDailyFocus(durationMinutes);
+      growPlant();
+      alert("Pomodoro complete! Time to grow your plant!");
       return;
     }
     remainingSeconds--;
