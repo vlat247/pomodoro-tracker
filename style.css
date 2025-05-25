@@ -53,18 +53,17 @@ button {
 
 .solid-grid {
   display: grid;
-  grid-template-columns: repeat(8, 50px);
-  grid-template-rows: repeat(8, 50px);
+  grid-template-rows: repeat(8, 40px);
+  
   gap: 1px;
   margin: 20px auto;
   width: fit-content;
   transform: rotateX(45deg) rotateZ(45deg); 
-  transform-style: preserve-3d;
 }
 
 .tile {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background-color: #5a3e1b; 
   border: 1px solid #3b2a10;
   box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.5);
@@ -73,8 +72,8 @@ button {
 
 #plant-grid {
   display: grid;
-  grid-template-columns: repeat(4, 40px);
-  grid-gap: 8px;
+  grid-template-columns: repeat(8, 40px);
+  grid-gap: 0px;
 }
 
 .plant-icon {
@@ -87,25 +86,16 @@ button {
   transform: rotate(-45deg) skewY(0deg);
 }
 
-.plant-icon.flower {
-  background-image: url('graphics/flower.png');
+.plant-icon:active {
+  cursor: grabbing;
 }
 
-.plant-icon.cactus {
-  background-image: url('graphics/cactus.png');
-}
-.plant-icon.tree {
-  background-image: url('graphics/tree.png');
-}
-.plant-icon.bush {
-  background-image: url('graphics/bush.png');
-}
-.plant-icon.flower2 {
-  background-image: url('graphics/flower2.png');
-}
-
-
-
+/* Plant type classes */
+.plant-icon.flower { background-image: url('graphics/flower.png'); }
+.plant-icon.cactus { background-image: url('graphics/cactus.png'); }
+.plant-icon.tree { background-image: url('graphics/tree.png'); }
+.plant-icon.bush { background-image: url('graphics/bush.png'); }
+.plant-icon.flower2 { background-image: url('graphics/flower2.png'); }
 
 #register-link {
   color: #00ffff;

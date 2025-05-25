@@ -56,64 +56,6 @@ function resetTimer() {
   updateDisplay();
 }
 
-const plantTypes = [
-  'flower',
-  'tree', 
-  'bush',
-  'cactus',
-  'flower2'
-]
-
-function growPlant() {
-  const grid = document.getElementById("plant-grid");
- 
-  const randomType = plantTypes[Math.floor(Math.random() * plantTypes.length)];
-  const plant = document.createElement("div");
-  plant.classList.add("plant-icon", randomType);
-  plant.setAttribute("draggable", "true");
-  plant.id = "plant-" + Date.now();  
-  plant.addEventListener("dragstart", dragStart);
-  grid.appendChild(plant);
-}
-
-//That saves my plant's id while i dragging it
-function dragStart(event) {
-  event.dataTransfer.setData("text/plain", event.target.id);
-}
-
-// THis shit makes all tiles accept drops, when my previos code cover only garden part without each separate tile
-document.querySelectorAll('.tile').forEach(tile => {
-  tile.addEventListener('dragover', function(event) {
-    event.preventDefault();
-  });
-
-  tile.addEventListener('drop', function(event) {
-    event.preventDefault();
-    const plantId = event.dataTransfer.getData("text/plain");
-    const plantElement = document.getElementById(plantId);
-    if (plantElement) {
-      this.appendChild(plantElement); // To drop plant into tile
-    }
-  });
-});
-
-window.addEventListener("DOMContentLoaded", () => {
-  // Add drop support to all tiles
-  document.querySelectorAll('.tile').forEach(tile => {
-    tile.addEventListener('dragover', event => {
-      event.preventDefault();
-    });
-
-    tile.addEventListener('drop', event => {
-      event.preventDefault();
-      const plantId = event.dataTransfer.getData("text/plain");
-      const plantElement = document.getElementById(plantId);
-      if (plantElement) {
-        tile.appendChild(plantElement); 
-      }
-    });
-  });
-});
 
 //my description modal
 document.addEventListener('DOMContentLoaded', function() {
@@ -194,3 +136,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
+
