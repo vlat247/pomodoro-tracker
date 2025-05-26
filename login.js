@@ -17,9 +17,10 @@
     setDoc,
     runTransaction,
     addDoc,
+    updateDoc,
     Timestamp
   } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
-
+  
   // Firebase Config
   const firebaseConfig = {
     apiKey: "AIzaSyCiPV6KfHOKiV7Sgqp0EJzo5GjbnlTwOyQ",
@@ -232,7 +233,6 @@
   }
 
 
-
 // STUFF TO SAVE PLANTS and load plants
 async function loadPlants() {
   const user = auth.currentUser;
@@ -244,7 +244,7 @@ async function loadPlants() {
 
     snapshot.forEach(doc => {
       const plant = doc.data();
-      renderPlant(plant, doc.id); // Pass document ID
+      renderPlant(plant, doc.id); 
     });
   } catch (error) {
     console.error("Error loading plants:", error);
@@ -252,55 +252,46 @@ async function loadPlants() {
 }
 
 function renderPlant(plant, docId) {
-  const grid = document.getElementById("plant-grid");
-  if (!grid) return;
-
-  // Check if plant already exists
-  if (document.getElementById(`plant-${docId}`)) return;
-
   const plantElement = document.createElement("div");
-  plantElement.className = `plant-icon ${plant.type}`; // Use your existing CSS classes
+  plantElement.className = `plant-icon ${plant.type}`;
   plantElement.id = `plant-${docId}`;
   plantElement.dataset.docId = docId;
-  plantElement.dataset.x = plant.position.x;
-  plantElement.dataset.y = plant.position.y;
   plantElement.setAttribute("draggable", "true");
   plantElement.addEventListener("dragstart", dragStart);
 
-  // Remove the img element creation completely
-  // Just use the background-image from your CSS
-
-  // Find the correct tile
-  const tile = document.querySelector(`.tile[data-x="${plant.position.x}"][data-y="${plant.position.y}"]`);
-  if (tile) {
-    tile.appendChild(plantElement);
+  if (plant.isInInventory) {
+    const inventory = document.getElementById("inventoryModal");
+    if (inventory) {
+      inventory.appendChild(plantElement);
+    } else {
+      console.error("Inventory not found");
+    }
   } else {
-    console.error(`Tile not found at ${plant.position.x},${plant.position.y}`);
-    grid.appendChild(plantElement);
+    const tile = document.querySelector(`.tile[data-x="${plant.position.x}"][data-y="${plant.position.y}"]`);
+    if (tile) {
+      tile.appendChild(plantElement);
+    } else {
+      console.error(`Tile not found at ${plant.position.x},${plant.position.y}`);
+    }
   }
 }
 
-function growPlant() {
-  const grid = document.getElementById("plant-grid");
-  if (!grid) {
-    console.error("No grid found");
-    return;
-  }
 
+function growPlant() {
   const plantTypes = ['flower', 'tree', 'bush', 'cactus', 'flower2'];
   const randomType = plantTypes[Math.floor(Math.random() * plantTypes.length)];
 
   const plantData = {
     type: randomType,
     plantedAt: new Date().toISOString(),
-    position: {
-      x: Math.floor(Math.random() * 8),
-      y: Math.floor(Math.random() * 8)
-    },
-    isInInventory: false
+    position: { x: -1, y: -1 }, 
+    isInInventory: true
   };
 
   savePlant(plantData);
+
+  const modal = document.getElementById('inventoryModal');
+  if (modal) modal.style.display = 'block';
 }
 
 async function savePlant(plantData) {
@@ -330,26 +321,36 @@ function setupDragAndDrop() {
 
     tile.addEventListener('drop', async function(event) {
       event.preventDefault();
+
       const plantId = event.dataTransfer.getData("text/plain");
       const plantElement = document.getElementById(plantId);
-      
       if (!plantElement) return;
 
-      // Update position in DOM
       const x = tile.dataset.x;
       const y = tile.dataset.y;
+
+      // Move plant in DOM
       plantElement.dataset.x = x;
       plantElement.dataset.y = y;
       tile.appendChild(plantElement);
 
-      // Update position in Firestore
       const docId = plantElement.dataset.docId;
       if (!docId) return;
 
+      const user = auth.currentUser;
+      if (!user) {
+        console.error("No authenticated user");
+        return;
+      }
+
       try {
-        const plantRef = doc(db, "users", auth.currentUser.uid, "plants", docId);
+        const plantRef = doc(db, "users", user.uid, "plants", docId);
+        const newPosition = { x: parseInt(x), y: parseInt(y) };
+        console.log("Updating plant position:", newPosition);
+
         await updateDoc(plantRef, {
-          position: { x: parseInt(x), y: parseInt(y) }
+          position: newPosition,
+          isInInventory: false
         });
       } catch (error) {
         console.error("Error updating plant position:", error);
@@ -357,6 +358,8 @@ function setupDragAndDrop() {
     });
   });
 }
+
+
 
 window.addEventListener("DOMContentLoaded", () => {
   setupDragAndDrop();
