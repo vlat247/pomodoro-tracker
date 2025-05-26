@@ -234,6 +234,7 @@
 
 
 // STUFF TO SAVE PLANTS and load plants
+// STUFF TO SAVE PLANTS and load plants
 async function loadPlants() {
   const user = auth.currentUser;
   if (!user) return;
@@ -259,8 +260,9 @@ function renderPlant(plant, docId) {
   plantElement.setAttribute("draggable", "true");
   plantElement.addEventListener("dragstart", dragStart);
 
+  const inventory = document.getElementById("inventoryModal");
+
   if (plant.isInInventory) {
-    const inventory = document.getElementById("inventoryModal");
     if (inventory) {
       inventory.appendChild(plantElement);
     } else {
@@ -275,7 +277,6 @@ function renderPlant(plant, docId) {
     }
   }
 }
-
 
 function growPlant() {
   const plantTypes = ['flower', 'tree', 'bush', 'cactus', 'flower2'];
@@ -314,6 +315,7 @@ function dragStart(event) {
 }
 
 function setupDragAndDrop() {
+  // Make tiles accept drops
   document.querySelectorAll('.tile').forEach(tile => {
     tile.addEventListener('dragover', event => {
       event.preventDefault();
@@ -329,7 +331,6 @@ function setupDragAndDrop() {
       const x = tile.dataset.x;
       const y = tile.dataset.y;
 
-      // Move plant in DOM
       plantElement.dataset.x = x;
       plantElement.dataset.y = y;
       tile.appendChild(plantElement);
@@ -357,11 +358,49 @@ function setupDragAndDrop() {
       }
     });
   });
+
+  // Make inventory accept drops
+  const inventory = document.getElementById("inventoryModal");
+  if (inventory) {
+    inventory.addEventListener('dragover', event => {
+      event.preventDefault();
+    });
+
+    inventory.addEventListener('drop', async function(event) {
+      event.preventDefault();
+
+      const plantId = event.dataTransfer.getData("text/plain");
+      const plantElement = document.getElementById(plantId);
+      if (!plantElement) return;
+
+      inventory.appendChild(plantElement);
+
+      const docId = plantElement.dataset.docId;
+      if (!docId) return;
+
+      const user = auth.currentUser;
+      if (!user) {
+        console.error("No authenticated user");
+        return;
+      }
+
+      try {
+        const plantRef = doc(db, "users", user.uid, "plants", docId);
+        console.log("Moving plant to inventory");
+
+        await updateDoc(plantRef, {
+          isInInventory: true,
+          position: { x: -1, y: -1 }
+        });
+      } catch (error) {
+        console.error("Error moving plant to inventory:", error);
+      }
+    });
+  }
 }
-
-
 
 window.addEventListener("DOMContentLoaded", () => {
   setupDragAndDrop();
   loadPlants();
 });
+
