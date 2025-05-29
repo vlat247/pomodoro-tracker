@@ -404,3 +404,4 @@ window.addEventListener("DOMContentLoaded", () => {
   loadPlants();
 });
 
+

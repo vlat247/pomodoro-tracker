@@ -104,3 +104,47 @@ onAuthStateChanged(auth, async (user) => {
     updateCalendar();
   }
 });
+
+const randomMotivationalQuotes = ["You are capable of amazing things.", "You will die one day, but your work will live on.", "Believe in yourself and all that you are.", "Your only limit is your mind.", "Dream it. Wish it. Do it.", 
+  "Explore Memorize and Internilze.", "The future depends on what you do today.", "Success is not for the lazy.", "You are stronger than you think.", "Push yourself, because no one else is going to do it for you."
+];
+
+document.addEventListener("DOMContentLoaded", () => {
+  const modalRandomMessage = document.getElementById("randomMessageModal");
+  const closeBtn = document.querySelector('#randomMessageModal .close');
+  const modalTriggers = document.querySelectorAll('[data-open-random-message]');
+  const quoteElement = document.querySelector('#randomMessageModal p');
+
+  function getRandomQuote() {
+    const randomIndex = Math.floor(Math.random() * randomMotivationalQuotes.length);
+    return randomMotivationalQuotes[randomIndex];
+  }
+
+  function openModal() {
+    modalRandomMessage.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    quoteElement.textContent = getRandomQuote();
+  }
+  function closeModal() {
+    modalRandomMessage.style.display = 'none';
+    document.body.style.overflow = 'auto';
+  }
+
+  modalTriggers.forEach(trigger => {
+      trigger.addEventListener('click', openModal);
+  });
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeModal);
+  } 
+  window.addEventListener('click', function(event) {
+    if (event.target === modalRandomMessage) {
+      closeModal();
+    }
+  });
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && modalRandomMessage.style.display === 'block') {
+      closeModal();
+    }
+  });
+});

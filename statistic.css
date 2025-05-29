@@ -127,3 +127,61 @@ body.statistic-page {
 .date.inactive:hover {
     color:#fff;
 }
+
+/* CSS */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    position: relative;
+    border-radius: 10px;
+}
+
+.close {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: red;
+}
+
+.getMotivation {
+  display: flex;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+
+  font-family: "Press Start 2P", sans-serif;
+  font-size: 14px;
+  color: #95c9c5;
+  text-decoration: none;
+  padding: 8px 12px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 2px solid #184e3d9c;
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+.getMotivation:hover {
+  background-color: rgba(10, 21, 83, 0.7);
+  color: #ffffff;
+}
