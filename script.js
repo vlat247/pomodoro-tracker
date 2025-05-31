@@ -1,3 +1,14 @@
+import {
+  collection,
+  addDoc
+} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+const db = getFirestore();
+const auth = getAuth();
+
+
+
+
 let minutes = 0;
 let seconds = 1;
 let timerInterval;
@@ -137,3 +148,60 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+
+document.addEventListener('DOMContentLoaded', function() {
+  const modalEmporium = document.getElementById("emporiumModal");
+  const closeBtn = document.querySelector('#emporiumModal .close');
+  const modalTriggers = document.querySelectorAll('[data-open-emporium]');
+  const moneyDisplay = document.getElementById("moneyAmount");
+  const buyButtons = document.querySelectorAll('.buy-button');
+
+  let playerMoney = 100; 
+
+
+  function openModal() {
+    modalEmporium.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    modalEmporium.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  function updateMoneyDisplay() {
+    moneyDisplay.textContent = playerMoney;
+  }
+
+
+  
+  buyButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const itemCost = parseInt(this.getAttribute('data-price'));
+      if (playerMoney >= itemCost) {
+        playerMoney -= itemCost;
+        updateMoneyDisplay();
+        alert("Item purchased successfully!");
+      } else {
+        alert("Not enough money to purchase this item.");
+      }
+    });
+  });
+
+  if (modalTriggers) {
+    modalTriggers.forEach(trigger => {
+      trigger.addEventListener('click', openModal);
+    });
+  }
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeModal);
+  }
+  window.addEventListener('click', function(event) {
+    if (event.target === modalEmporium) {
+      closeModal();
+    }
+  });
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && modalEmporium.style.display === 'block') {
+      closeModal();
+    }
+  });
+})
