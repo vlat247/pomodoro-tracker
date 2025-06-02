@@ -96,6 +96,9 @@ button {
 .plant-icon.tree { background-image: url('graphics/tree.png'); }
 .plant-icon.bush { background-image: url('graphics/bush.png'); }
 .plant-icon.flower2 { background-image: url('graphics/flower2.png'); }
+.plant-icon.orange { background-image: url('graphics/orange.png'); }
+.plant-icon.sigma-boy { background-image: url('graphics/sunflowerglasses.jpg');}
+
 
 #register-link {
   color: #00ffff;

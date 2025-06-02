@@ -43,6 +43,10 @@
   let remainingSeconds = 0;
   const defaultMinutes = 25;
 
+  window.auth = auth;
+  window.db = db;
+ 
+ 
   document.addEventListener('DOMContentLoaded', () => {
     setupUIListeners();
     setupAuthStateListener();
@@ -404,4 +408,96 @@ window.addEventListener("DOMContentLoaded", () => {
   loadPlants();
 });
 
+//EMPORIUM 
+
+document.addEventListener('DOMContentLoaded', function() {
+  const modalEmporium = document.getElementById("emporiumModal");
+  const closeBtn = document.querySelector('#emporiumModal .close');
+  const modalTriggers = document.querySelectorAll('[data-open-emporium]');
+  const moneyDisplay = document.getElementById("moneyAmount");
+  
+
+
+  const buyButtons = document.querySelectorAll('.buy-button');
+  let playerMoney = 100; // Or get from user data
+
+function updateMoneyDisplay() {
+  document.getElementById("moneyAmount").textContent = playerMoney;
+}
+
+buyButtons.forEach(button => {
+  button.addEventListener('click', async function () {
+    const itemCost = parseInt(this.getAttribute('data-price'));
+    const itemType = this.getAttribute('data-plant-type'); // or data-plant-type if you renamed it
+
+    if (playerMoney >= itemCost) {
+      playerMoney -= itemCost;
+      updateMoneyDisplay();
+
+      try {
+        const user = auth.currentUser;
+        if (!user) {
+          alert("You must be logged in to buy a plant.");
+          return;
+        }
+
+        const plantData = {
+          type: itemType,
+          plantedAt: new Date().toISOString(),
+          position: { x: -1, y: -1 },
+          isInInventory: true
+        };
+
+        const docRef = await addDoc(collection(db, "users", user.uid, "plants"), plantData);
+
+        
+        renderPlant(plantData, docRef.id);
+
+        alert("Item purchased and saved to inventory!");
+      } catch (error) {
+        console.error("Error saving purchased plant:", error);
+        alert("Failed to save plant to inventory.");
+      }
+    } else {
+      alert("Not enough money to purchase this item.");
+    }
+  });
+});
+
+
+  function openModal() {
+    modalEmporium.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    modalEmporium.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+ 
+
+
+  function updateMoneyDisplay() {
+    document.getElementById("moneyAmount").textContent = playerMoney;
+  }
+
+
+  if (modalTriggers) {
+    modalTriggers.forEach(trigger => {
+      trigger.addEventListener('click', openModal);
+    });
+  }
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeModal);
+  }
+  window.addEventListener('click', function(event) {
+    if (event.target === modalEmporium) {
+      closeModal();
+    }
+  });
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && modalEmporium.style.display === 'block') {
+      closeModal();
+    }
+  });
+});
 
