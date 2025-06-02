@@ -415,52 +415,45 @@ document.addEventListener('DOMContentLoaded', function() {
   const closeBtn = document.querySelector('#emporiumModal .close');
   const modalTriggers = document.querySelectorAll('[data-open-emporium]');
   const moneyDisplay = document.getElementById("moneyAmount");
-  
-
-
   const buyButtons = document.querySelectorAll('.buy-button');
-  let playerMoney = 100; // Or get from user data
 
-function updateMoneyDisplay() {
-  document.getElementById("moneyAmount").textContent = playerMoney;
-}
 
-buyButtons.forEach(button => {
-  button.addEventListener('click', async function () {
-    const itemCost = parseInt(this.getAttribute('data-price'));
-    const itemType = this.getAttribute('data-plant-type'); // or data-plant-type if you renamed it
 
-    if (playerMoney >= itemCost) {
+
+    buyButtons.forEach(button => {
+      button.addEventListener('click', async function () {
+        const itemCost = parseInt(this.getAttribute('data-price'));
+        const itemType = this.getAttribute('data-plant-type'); // or data-plant-type if you renamed it
+
+        try {
+      const user = auth.currentUser;
+      if (!user) {
+        alert("You must be logged in to buy a plant.");
+        return;
+      }
+
+      const plantData = {
+        type: itemType,
+        plantedAt: new Date().toISOString(),
+        position: { x: -1, y: -1 },
+        isInInventory: true
+      };
+
+      const docRef = await addDoc(collection(db, "users", user.uid, "plants"), plantData);
+
+      // NOW update money since plant was saved
       playerMoney -= itemCost;
+      await updateUserMoney(user.uid, playerMoney);
       updateMoneyDisplay();
 
-      try {
-        const user = auth.currentUser;
-        if (!user) {
-          alert("You must be logged in to buy a plant.");
-          return;
-        }
+      renderPlant(plantData, docRef.id);
+      alert("Item purchased and saved to inventory!");
 
-        const plantData = {
-          type: itemType,
-          plantedAt: new Date().toISOString(),
-          position: { x: -1, y: -1 },
-          isInInventory: true
-        };
-
-        const docRef = await addDoc(collection(db, "users", user.uid, "plants"), plantData);
-
-        
-        renderPlant(plantData, docRef.id);
-
-        alert("Item purchased and saved to inventory!");
-      } catch (error) {
-        console.error("Error saving purchased plant:", error);
-        alert("Failed to save plant to inventory.");
-      }
-    } else {
-      alert("Not enough money to purchase this item.");
+    } catch (error) {
+      console.error("Error saving purchased plant:", error);
+      alert("Failed to save plant to inventory.");
     }
+
   });
 });
 
@@ -500,4 +493,34 @@ buyButtons.forEach(button => {
     }
   });
 });
+
+//Money function
+function updateMoneyDisplay() {
+      document.getElementById("moneyAmount").textContent = playerMoney;
+    }
+
+async function loadUserMoney(userId) {
+  const userDocRef = doc(db, "users", userId);
+  const userSnap = await getDoc(userDocRef);
+  if (userSnap.exists()) {
+    const data = userSnap.data();
+    return data.money || 0;
+  } else {
+    await setDoc(userDocRef, { money: 100 }); 
+    return 100;
+  }
+}
+
+let playerMoney = 0; // Or get from user data
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    const Money = await loadUserMoney(user.uid);
+    playerMoney = Money;
+    updateMoneyDisplay();
+  }
+});
+async function updateUserMoney(userId, newMoneyAmount) {
+  const userDocRef = doc(db, "users", userId);
+  await setDoc(userDocRef, { money: newMoneyAmount }, { merge: true });
+}
 
