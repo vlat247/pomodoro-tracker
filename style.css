@@ -76,6 +76,11 @@ button {
   grid-gap: 0px;
 }
 
+
+.solid-grid .plant-icon {
+  transform: rotate(-45deg) skewY(0deg);
+}
+
 .plant-icon {
   width: 30px;
   height: 40px;
@@ -83,7 +88,6 @@ button {
   background-position: center;
   border-radius: 6px;
   cursor: grab;
-  transform: rotate(-45deg) skewY(0deg);
 }
 
 .plant-icon:active {
