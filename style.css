@@ -100,7 +100,7 @@ button {
 .plant-icon.tree { background-image: url('graphics/tree.png'); }
 .plant-icon.bush { background-image: url('graphics/bush.png'); }
 .plant-icon.flower2 { background-image: url('graphics/flower2.png'); }
-.plant-icon.orange { background-image: url('graphics/orange.png'); }
+.plant-icon.orange { background-image: url('graphics/orange.jpg'); }
 .plant-icon.sigma-boy { background-image: url('graphics/sunflowerglasses.jpg');}
 
 
@@ -323,8 +323,13 @@ body.modal-open {
   padding: 20px;
   box-shadow: 4px 0 8px rgba(0, 0, 0, 0.7);
   font-family: "Press Start 2P", sans-serif;
-  z-index: 1000;
-  display: none;
+  z-index: 999;
+}
+
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
 }
 
 #inventoryModal h2 {
@@ -415,7 +420,7 @@ body.modal-open {
   background-color: rgba(0, 0, 0, 0.8);
   border: 2px solid #3191059c;
   border-radius: 4px;
-  z-index: 1000;
+  z-index: 900;
 }
 
 /* Modal Content */
@@ -472,7 +477,7 @@ body.modal-open {
   color: #f1c40f;
 }
 
-.data-price {
+button .data-price {
   color: #f1c40f;
   font-weight: bold;
   display: flex;
@@ -481,7 +486,7 @@ body.modal-open {
 }
 
 .buy-button {
-  background: #ff3de5;
+  background: #189e11;
   color: rgb(255, 255, 255);
   border: rgb(0, 0, 0) 2px solid;
   border-radius: 5px;
@@ -493,5 +498,28 @@ body.modal-open {
 }
 
 .buy-button:hover {
-  background: #27648a;
+  background: #175208;
+}
+
+/* Exchange plants button texture*/
+#exchangeGrid {
+  bottom: 100px;
+  position: fixed;
+  left: 100px;
+  width: 60px;
+  height: 60px;
+  background-color: #5a3e1b; 
+  border: 1px solid #3b2a10;
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+}
+
+#exchangePlantButton {
+  position: fixed;
+  bottom: 11px;
+  left: 20px;
+  width: 200px;
+  color:#ddd;
+  background-color: rgb(0, 0, 0);
+  border-radius: 10px;
 }

@@ -18,7 +18,8 @@
     runTransaction,
     addDoc,
     updateDoc,
-    Timestamp
+    Timestamp,
+    deleteDoc
   } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
   
   // Firebase Config
@@ -295,7 +296,7 @@ function growPlant() {
 
   savePlant(plantData);
 
-  const modal = document.getElementById('inventoryModal');
+  const modal = document.getElementById('inventory-grid');
   if (modal) modal.style.display = 'block';
 }
 
@@ -319,49 +320,141 @@ function dragStart(event) {
 }
 
 function setupDragAndDrop() {
-  // Make tiles accept drops
+  // Make all tiles droppable
   document.querySelectorAll('.tile').forEach(tile => {
-    tile.addEventListener('dragover', event => {
-      event.preventDefault();
-    });
+    tile.addEventListener('dragover', event => event.preventDefault());
 
-    tile.addEventListener('drop', async function(event) {
+    tile.addEventListener('drop', async function (event) {
       event.preventDefault();
+      const plantId = event.dataTransfer.getData("text/plain");
+      const plantElement = document.getElementById(plantId);
+      if (!plantElement) return;
+
+      const inventoryGrid = document.querySelector(".inventory-grid");
+      if (inventoryGrid.contains(plantElement)) {
+        inventoryGrid.removeChild(plantElement);
+      }
+
+      tile.innerHTML = ''; // Clear existing plant
+      tile.appendChild(plantElement);
+
+      const docId = plantElement.dataset.docId;
+      const x = tile.dataset.x;
+      const y = tile.dataset.y;
+      const user = auth.currentUser;
+      if (!user || !docId) return;
+
+      try {
+        const plantRef = doc(db, "users", user.uid, "plants", docId);
+        await updateDoc(plantRef, {
+          position: { x: parseInt(x), y: parseInt(y) },
+          isInInventory: false
+        });
+      } catch (error) {
+        console.error("Error placing plant on tile:", error);
+      }
+    });
+  });
+
+  // Inventory drop
+  const inventory = document.querySelector(".inventory-grid");
+
+  inventory.addEventListener("dragover", event => event.preventDefault());
+
+  inventory.addEventListener("drop", async function (event) {
+    // Ignore if dropping on exchange
+    if (event.target.closest("#exchangeGrid")) {
+      console.log("Ignored inventory drop: it's on exchange grid");
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    const plantId = event.dataTransfer.getData("text/plain");
+    const plantElement = document.getElementById(plantId);
+    if (!plantElement) return;
+
+    console.log("Moving plant to inventory");
+
+    const parentTile = plantElement.closest(".tile");
+    if (parentTile) parentTile.innerHTML = '';
+
+    inventory.appendChild(plantElement);
+
+    const docId = plantElement.dataset.docId;
+    const user = auth.currentUser;
+    if (!user || !docId) return;
+
+    try {
+      const plantRef = doc(db, "users", user.uid, "plants", docId);
+      await updateDoc(plantRef, {
+        position: { x: -1, y: -1 },
+        isInInventory: true
+      });
+    } catch (error) {
+      console.error("Error returning plant to inventory:", error);
+    }
+  });
+
+  // Exchange drop
+  let plantToExchange = null;
+  const exchange = document.getElementById("exchangeGrid");
+
+  if (exchange) {
+    exchange.addEventListener("dragover", event => event.preventDefault());
+
+    exchange.addEventListener("drop", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
 
       const plantId = event.dataTransfer.getData("text/plain");
       const plantElement = document.getElementById(plantId);
       if (!plantElement) return;
 
-      const x = tile.dataset.x;
-      const y = tile.dataset.y;
+      console.log("Plant dropped on exchange area");
 
-      plantElement.dataset.x = x;
-      plantElement.dataset.y = y;
-      tile.appendChild(plantElement);
-
-      const docId = plantElement.dataset.docId;
-      if (!docId) return;
-
-      const user = auth.currentUser;
-      if (!user) {
-        console.error("No authenticated user");
-        return;
-      }
-
-      try {
-        const plantRef = doc(db, "users", user.uid, "plants", docId);
-        const newPosition = { x: parseInt(x), y: parseInt(y) };
-        console.log("Updating plant position:", newPosition);
-
-        await updateDoc(plantRef, {
-          position: newPosition,
-          isInInventory: false
-        });
-      } catch (error) {
-        console.error("Error updating plant position:", error);
-      }
+      plantToExchange = plantElement;
+      exchange.innerHTML = ''; // Remove existing plant
+      exchange.appendChild(plantElement);
     });
+  }
+
+  // Exchange button logic
+  document.getElementById("exchangePlantButton").addEventListener("click", async () => {
+    if (!plantToExchange) return;
+
+    const docId = plantToExchange.dataset.docId;
+    const user = auth.currentUser;
+    if (!user || !docId) return;
+
+    try {
+      const plantRef = doc(db, "users", user.uid, "plants", docId);
+      await deleteDoc(plantRef);
+
+      const userRef = doc(db, "users", user.uid);
+      const userSnap = await getDoc(userRef);
+      const currentMoney = userSnap.exists() ? userSnap.data().money || 0 : 0;
+      const newMoney = currentMoney + 50;
+      
+
+      await updateDoc(userRef, { money: newMoney });
+      document.getElementById("moneyAmount").textContent = newMoney;
+      alert("Your plant was destroyed you recieve 50 coins")
+
+      plantToExchange.remove();
+      exchange.innerHTML = '';
+      plantToExchange = null;
+    } catch (error) {
+      console.error("Error during exchange:", error);
+    }
   });
+}
+
+// Call it after DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  setupDragAndDrop();
+});
 
   // Make inventory accept drops
   const inventory = document.getElementById("inventoryModal");
@@ -401,7 +494,6 @@ function setupDragAndDrop() {
       }
     });
   }
-}
 
 window.addEventListener("DOMContentLoaded", () => {
   setupDragAndDrop();
