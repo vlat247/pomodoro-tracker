@@ -3,9 +3,16 @@ import {
   collection,
   getDocs,
   doc,
-  getDoc
+  query,
+  orderBy,
+  limit
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+
+import {
+  getAuth,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+
 
 const db = getFirestore();
 const auth = getAuth();
@@ -147,4 +154,59 @@ document.addEventListener("DOMContentLoaded", () => {
       closeModal();
     }
   });
+});
+// Leaderboard
+
+async function loadLeaderboard() {
+  const leaderboardContainer = document.getElementById("leaderboard");
+  leaderboardContainer.innerHTML = "<h3>Leaderboard</h3>";
+
+  try {
+    const usersRef = collection(db, "users");
+    const usersSnapshot = await getDocs(usersRef);
+    const leaderboardData = [];
+
+    for (const userDoc of usersSnapshot.docs) {
+      const userId = userDoc.id;
+      const userData = userDoc.data();
+      const focusHistoryRef = collection(db, "users", userId, "focusHistory");
+      const focusSnap = await getDocs(focusHistoryRef);
+
+      let totalMinutes = 0;
+      focusSnap.forEach(doc => {
+        const data = doc.data();
+        totalMinutes += data.focusTime || 0;
+      });
+
+      leaderboardData.push({
+        name: userData.name || "Anonymous",
+        totalFocusTime: totalMinutes
+      });
+    }
+  
+
+    // Sort users by total focus time
+    leaderboardData.sort((a, b) => b.totalFocusTime - a.totalFocusTime);
+  
+
+   // Display top 10
+    leaderboardData.slice(0, 10).forEach((entry, index) => {
+      const div = document.createElement("div");
+      div.className = "leaderboard-entry";
+
+      const name = entry.name || "Anonymous";
+      const time = entry.totalFocusTime || 0;
+
+      div.textContent = `${index + 1}. ${name} - ${time} min`;
+      leaderboardContainer.appendChild(div);
+    });
+  } catch (error) {
+    console.error("Error loading leaderboard:", error);
+    leaderboardContainer.innerHTML += "<div class='error'>Failed to load leaderboard.</div>";
+  }
+}
+
+// Call loadLeaderboard on DOMContentLoaded
+document.addEventListener("DOMContentLoaded", () => {
+  loadLeaderboard();
 });

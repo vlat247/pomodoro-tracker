@@ -90,30 +90,39 @@
     });
 
     document.getElementById("signupForm")?.addEventListener("submit", async e => {
-      e.preventDefault();
-      const password = document.getElementById("signup-password").value;
-      const confirm = document.getElementById("confirm-password").value;
+  e.preventDefault();
+  const password = document.getElementById("signup-password").value;
+  const confirm = document.getElementById("confirm-password").value;
 
-      if (password !== confirm) {
-        passwordError.style.display = "block";
-        return;
-      }
+  if (password !== confirm) {
+    passwordError.style.display = "block";
+    return;
+  }
 
-      try {
-        const userCredential = await createUserWithEmailAndPassword(
-          auth,
-          document.getElementById("signup-email").value,
-          password
-        );
-        await updateProfile(userCredential.user, {
-          displayName: document.getElementById("username").value
-        });
-        closeModals();
-        alert("Account created successfully!");
-      } catch (err) {
-        alert("Signup error: " + err.message);
-      }
+  try {
+    const email = document.getElementById("signup-email").value;
+    const username = document.getElementById("username").value;
+
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+    // Set display name in auth profile
+    await updateProfile(userCredential.user, {
+      displayName: username
     });
+
+    // Save username in Firestore
+    await setDoc(doc(db, "users", userCredential.user.uid), {
+      name: username,
+      totalFocusTime: 0
+    });
+
+    closeModals();
+    alert("Account created successfully!");
+  } catch (err) {
+    alert("Signup error: " + err.message);
+  }
+});
+
 
     document.getElementById("loginForm")?.addEventListener("submit", async e => {
       e.preventDefault();
@@ -375,8 +384,6 @@ function setupDragAndDrop() {
     const plantElement = document.getElementById(plantId);
     if (!plantElement) return;
 
-    console.log("Moving plant to inventory");
-
     const parentTile = plantElement.closest(".tile");
     if (parentTile) parentTile.innerHTML = '';
 
@@ -411,8 +418,6 @@ function setupDragAndDrop() {
       const plantId = event.dataTransfer.getData("text/plain");
       const plantElement = document.getElementById(plantId);
       if (!plantElement) return;
-
-      console.log("Plant dropped on exchange area");
 
       plantToExchange = plantElement;
       exchange.innerHTML = ''; // Remove existing plant
@@ -501,7 +506,6 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 //EMPORIUM 
-
 document.addEventListener('DOMContentLoaded', function() {
   const modalEmporium = document.getElementById("emporiumModal");
   const closeBtn = document.querySelector('#emporiumModal .close');

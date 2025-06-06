@@ -185,3 +185,14 @@ body.statistic-page {
   background-color: rgba(10, 21, 83, 0.7);
   color: #ffffff;
 }
+
+table {
+  border-collapse: collapse;
+  padding: 10px;
+  background-color: #fff;
+  
+}
+tr:hover {
+ background-color: #d2d2d2;
+}
+
