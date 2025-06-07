@@ -191,18 +191,28 @@ async function loadLeaderboard() {
 
    // Display top 10
     leaderboardData.slice(0, 10).forEach((entry, index) => {
-      const div = document.createElement("div");
-      div.className = "leaderboard-entry";
-
-      const name = entry.name || "Anonymous";
-      const time = entry.totalFocusTime || 0;
-
-      div.textContent = `${index + 1}. ${name} - ${time} min`;
-      leaderboardContainer.appendChild(div);
+      const entryDiv = document.createElement("div");
+      entryDiv.className = "leaderboard-entry";
+      
+      const rankSpan = document.createElement("span");
+      rankSpan.className = "entry-rank";
+      rankSpan.textContent = `${index + 1}.`;
+      
+      const nameSpan = document.createElement("span");
+      nameSpan.className = "entry-name";
+      nameSpan.textContent = entry.name || "Anonymous";
+      
+      const timeSpan = document.createElement("span");
+      timeSpan.className = "entry-time";
+      timeSpan.textContent = ` ${entry.totalFocusTime || 0} min`;
+      
+      entryDiv.append(rankSpan, nameSpan, timeSpan);
+      leaderboardContainer.appendChild(entryDiv);
     });
-  } catch (error) {
+  }
+  catch (error) {
     console.error("Error loading leaderboard:", error);
-    leaderboardContainer.innerHTML += "<div class='error'>Failed to load leaderboard.</div>";
+    leaderboardContainer.innerHTML += "<div class='leaderboard-error'>Failed to load leaderboard.</div>";
   }
 }
 

@@ -6,13 +6,13 @@ html, body {
 }
 
 body.statistic-page {
-  height: 100vh;
-  background: url(/graphics/Preview_143.jpg) center center / cover no-repeat;
+  
   font-family: "Press Start 2P", sans-serif;
   text-align: center;
   align-items: center;
   justify-content: center;
-  display: flex;
+  display: relative;
+  background-color: #95c9c5;
 }
 
 .dashboard-container {
@@ -186,13 +186,29 @@ body.statistic-page {
   color: #ffffff;
 }
 
-table {
-  border-collapse: collapse;
-  padding: 10px;
-  background-color: #fff;
-  
-}
-tr:hover {
- background-color: #d2d2d2;
+.leaderboard {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  width: 300px;
 }
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid #000;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 15px;
+}
+
+.leaderboard-entry {
+  padding: 15px;
+  margin: 5px 0;
+  background-color:rgb(228, 228, 228);
+  border: 2px solid #000;
+  border-radius: 4px;
+
+
+}
