@@ -325,11 +325,12 @@ body.modal-open {
   font-family: "Press Start 2P", sans-serif;
   z-index: 999;
 }
-
 .inventory-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 40px);
   gap: 10px;
+  justify-items: center;
+  align-items: center;
 }
 
 #inventoryModal h2 {

@@ -1,12 +1,31 @@
 html, body {
   height: 100%;
-  overflow: hidden;
   margin: 0;
   padding: 0;
 }
 
 body.statistic-page {
-  
+  font-family: "Press Start 2P", sans-serif;
+  background-color: #95c9c5;
+  display: flex;
+}
+body.leaderboard1-page {
+  font-family: "Press Start 2P", sans-serif;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: relative;
+  background-color: #95c9c5;
+}
+body.shareGarden {
+  font-family: "Press Start 2P", sans-serif;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: relative;
+  background-color: #95c9c5;
+}
+body.friends {
   font-family: "Press Start 2P", sans-serif;
   text-align: center;
   align-items: center;
@@ -22,6 +41,9 @@ body.statistic-page {
   gap: 40px;
   padding: 50px;
   font-family: "Press Start 2P", sans-serif;
+  min-height: 100vh;
+  flex-wrap: wrap;
+  overflow-y: auto;
 }
 
 .stats-section {
@@ -79,19 +101,6 @@ body.statistic-page {
   padding: 5px;
   color:rgba(0, 0, 0);
   font-weight: 500;
-}
-
-#back-to-home {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  font-family: "Press Start 2P", sans-serif;
-  font-size: 12px;
-  color: #ffffff;
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 6px 12px;
-  border: 2px solid #bef0be;
-  border-radius: 4px;
 }
 
 .dates {
@@ -166,7 +175,7 @@ body.statistic-page {
 
 .getMotivation {
   display: flex;
-  position: absolute;
+  position: fixed;
   bottom: 20px;
   right: 20px;
 
@@ -187,7 +196,7 @@ body.statistic-page {
 }
 
 .leaderboard {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -197,7 +206,7 @@ body.statistic-page {
 table {
   width: 100%;
   border-collapse: collapse;
-  border: 2px solid #000;
+  border: 1px solid #000;
   padding: 10px;
   border-radius: 8px;
   margin-top: 15px;
@@ -206,9 +215,177 @@ table {
 .leaderboard-entry {
   padding: 15px;
   margin: 5px 0;
-  background-color:rgb(228, 228, 228);
-  border: 2px solid #000;
-  border-radius: 4px;
+  background-color:#f2f2f2;
+  border: 5px solid #000000;
+  border-radius: 10px;
+}
+
+.leaderboard-entry:nth-child(2) { /* 1st place */
+  border: 5px solid #f9dc3a;
+  border-radius: 10px;
+  font-weight: bold;
+}
+.leaderboard-entry:nth-child(3) { /* 2nd place */
+  border: 5px solid #c0c0c0;
+  border-radius: 10px;
+  font-weight: bold;
+}
+.leaderboard-entry:nth-child(4) { /* 3rd place */
+  border: 5px solid #d78c41;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.leaderboard-entry:hover {
+  transform: translateY(-3px);
+  transition: 0.2s;
+}
+
+.error {
+  color: #ff3333;
+  padding: 10px;
+  border: 2px dashed #ff3333;
+}
+
+.entry-rank {
+  width: 40px;
+  display: inline-block;
+  color: #000000;
+  font-size: 15px;
+}
+
+.entry-name {
+  flex-grow: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
 
 
+.leaderboard-entry {
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+  padding: 4px;
+}
+
+/*TO DESIGN MY CONTAINERS*/
+.statistic-container {
+  background-color: #183f3c;
+  height: 100vh;
+  width: 270px;
+  left: 0px;
+  top: 0px;
+  position: fixed;
+  border:2px solid #000;
+}
+.main-container {
+  flex: 1; 
+  padding: 20px;
+  overflow: auto; 
+}
+
+
+
+#leaderboardButton {
+  position: fixed;
+  top: 120px;
+  left: 20px;
+  font-family: "Press Start 2P", sans-serif;
+  font-size: 15px;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 12px 12px;
+  border: 2px;
+  width:210px;
+  border-radius: 6px;
+  text-align: left;
+  display: inline-block;
+}
+#leaderboardButton:hover {
+  background-color: #0f2b28;
+  transition: 0.2s ;
+}
+
+#back-to-home {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  font-family: "Press Start 2P", sans-serif;
+  font-size: 15px;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 12px 12px;
+  border: 2px;
+  width:210px;
+  border-radius: 6px;
+  text-align: left;
+  display: inline-block;
+}
+#back-to-home:hover {
+  background-color: #0f2b28;
+  transition: 0.2s ;
+}
+
+#friendsButton {
+  position: fixed;
+  top: 170px;
+  left: 20px;
+  font-family: "Press Start 2P", sans-serif;
+  font-size: 15px;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 12px 12px;
+  border: 2px;
+  width:210px;
+  border-radius: 6px;
+  text-align: left;
+  display: inline-block;
+}
+#friendsButton:hover {
+  background-color: #0f2b28;
+  transition: 0.2s ;
+}
+
+#shareGardenButton {
+  position: fixed;
+  top: 220px;
+  left: 20px;
+  font-family: "Press Start 2P", sans-serif;
+  font-size: 15px;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 12px 12px;
+  border: 2px;
+  width:210px;
+  border-radius: 6px;
+  text-align: left;
+  display: inline-block;
+}
+#shareGardenButton:hover {
+  background-color:#0f2b28;
+  transition: 0.2s;
+}
+
+#statistics {
+  position: fixed;
+  top: 70px;
+  left: 20px;
+  font-family: "Press Start 2P", sans-serif;
+  font-size: 15px;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 12px 12px;
+  border: 2px;
+  width:210px;
+  border-radius: 6px;
+  text-align: left;
+  display: inline-block;
+}
+#statistics:hover {
+  background-color:#0f2b28;
+  transition: 0.1s;
+}
+
+a {
+  text-decoration: none;
 }

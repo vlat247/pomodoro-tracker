@@ -1,38 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel ="stylesheet" href="statistic.css" />
-  </head>
-  <body class="statistic-page">
-    <h2>Keep track of your focused time!</h2>
-    <div class="dashboard-container">
-      <div id="calendar" class="calendar">
-      <div class="header">
-      <button id="prevBtn">
-        <i class="fa-solid fa-chevron-left"></i>
-      </button>
-      <div id="monthYear" class="monthYear"></div>
-      <button id="nextBtn">
-        <i class="fa-solid fa-chevron-right"></i>
-      </button>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel ="stylesheet" href="statistic.css" />
+</head>
+<body class="statistic-page">
+  <div class="main-content">
+      <h2>Keep track of your focused time!</h2>
+        <div class="dashboard-container">
+          <div id="calendar" class="calendar">
+          <div class="header">
+          <button id="prevBtn">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <div id="monthYear" class="monthYear"></div>
+          <button id="nextBtn">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+          </div>
+          <div class="days">
+            <div class="day">Mon</div>
+            <div class="day">Tue</div>
+            <div class="day">Wed</div>
+            <div class="day">Thu</div>
+            <div class="day">Fri</div>
+            <div class="day">Sat</div>
+            <div class="day">Sun</div>
+          </div>
+          <div class="dates" id="dates"></div>
+        </div>
+        <div class="stats-section">
+          <h2>Focus states</h2>
+          <p id="selectedDay">Pls..Select a day on the calendar</p>
+          <p id="focusedTime">Focused time:</p>
+          <hr>
+          <p id="totalFocusTime">Your total focused time:</p>
+        </div>
+        <!--My leaderboard of tracked time-->
+        <div class="leaderboard" id="leaderboard">
+          <h3>Leaderboard</h3>
+          <div id="backgroundBorder"><table></table></div>
+        </div>
       </div>
-      <div class="days">
-        <div class="day">Mon</div>
-        <div class="day">Tue</div>
-        <div class="day">Wed</div>
-        <div class="day">Thu</div>
-        <div class="day">Fri</div>
-        <div class="day">Sat</div>
-        <div class="day">Sun</div>
-      </div>
-      <div class="dates" id="dates"></div>
+  </div>
+    
+    
+  <div class="statistic-container">
+      <a href="leaderboard1.html" id="leaderboardButton">Leaderboard</a>
+      <a href="friends.html" id="friendsButton">Friends</a>
+      <a href="shareGarden.html" id="shareGardenButton">Share Your Garden</a>
+      <a href="index.html" id="back-to-home">Back to garden</a>
+      <a href="statistic.html" id="statistics">Home statistic</a>
     </div>
-
     <div class="stats-section">
       <h2>Focus states</h2>
       <p id="selectedDay">Pls..Select a day on the calendar</p>
@@ -49,17 +72,17 @@
 
 
 
-    <button data-open-random-message class="getMotivation">Get a motivation quote</button>
-    <div id="randomMessageModal" class="modal">
+  <button data-open-random-message class="getMotivation">Get a motivation quote</button>
+  <div id="randomMessageModal" class="modal">
     <div class="modal-content">
-    <span class="close">&times;</span>
-    <h4>What whispers of inspiration does your weary soul seek, oh mortal wanderer?</h4>
-    <hr>
-    <p></p>
+      <span class="close">&times;</span>
+      <h4>What whispers of inspiration does your weary soul seek, oh mortal wanderer?</h4>
+      <hr>
+      <p></p>
     </div>
-    </div>
-    <a href="index.html" id="back-to-home">Back to home</a>
+  </div>
+    
     <script type="module" src="login.js"></script>
     <script type ="module" src="statistic.js"></script>
-  </body>
+</body>
 </html>
