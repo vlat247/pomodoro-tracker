@@ -8,7 +8,11 @@ body.statistic-page {
   font-family: "Press Start 2P", sans-serif;
   background-color: #95c9c5;
   display: flex;
+  overflow: hidden;
+  height: 100vh;
 }
+
+
 body.leaderboard1-page {
   font-family: "Press Start 2P", sans-serif;
   text-align: center;
@@ -34,25 +38,13 @@ body.friends {
   background-color: #95c9c5;
 }
 
-.dashboard-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 40px;
-  padding: 50px;
-  font-family: "Press Start 2P", sans-serif;
-  min-height: 100vh;
-  flex-wrap: wrap;
-  overflow-y: auto;
-}
-
 .stats-section {
   background-color: rgb(255, 255, 255);
   padding: 20px;
   border-radius: 10px;
   text-align: left;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  width: 500px;
+  width: 300px;
 }
 .calendar {
   width: 430px;
@@ -268,22 +260,27 @@ table {
   padding: 4px;
 }
 
-/*TO DESIGN MY CONTAINERS*/
-.statistic-container {
-  background-color: #183f3c;
-  height: 100vh;
-  width: 270px;
-  left: 0px;
-  top: 0px;
-  position: fixed;
-  border:2px solid #000;
-}
+/*TO DESIGN MY CONTAINERS with navigation stuff*/
+
 .main-container {
   flex: 1; 
   padding: 20px;
   overflow: auto; 
 }
-
+.statistic-container {
+  width: 270px;
+  height: 100vh;
+  background-color: #183f3c;
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-right: 2px solid #000;
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  box-sizing: border-box;
+  z-index: 100;
+}
 
 
 #leaderboardButton {
@@ -312,7 +309,7 @@ table {
   left: 20px;
   font-family: "Press Start 2P", sans-serif;
   font-size: 15px;
-  color: #ffffff;
+  color: #ffee00;
   background-color: rgba(0, 0, 0, 0);
   padding: 12px 12px;
   border: 2px;
@@ -388,4 +385,23 @@ table {
 
 a {
   text-decoration: none;
+}
+
+.main-content {
+  margin-left: 270px; 
+  height: 100vh;
+  overflow-y: auto;
+  padding: 20px;
+  box-sizing: border-box;
+  width: calc(100% - 270px);
+}
+
+
+.dashboard-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  box-sizing: border-box;
 }
