@@ -91,25 +91,69 @@ nextBtn.addEventListener("click", () => {
 });
 
 // Load focus data on login
-onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    const uid = user.uid;
-    const focusRef = collection(db, "users", uid, "focusHistory");
-    const snapshot = await getDocs(focusRef);
+document.addEventListener("DOMContentLoaded", () => {
+  onAuthStateChanged(auth, async (user) => {
+  if (!user) return;
 
-    let totalMinutes = 0;
-    snapshot.forEach((docSnap) => {
-      const data = docSnap.data();
-      const dateKey = docSnap.id;
-      focusData[dateKey] = data.focusTime || 0;
-      totalMinutes += data.focusTime || 0;
-    });
+  const uid = user.uid;
+  const focusRef = collection(db, "users", uid, "focusHistory");
+  const snapshot = await getDocs(focusRef);
 
-  
-    document.getElementById("totalFocusTime").textContent = `Total focus time: ${totalMinutes} minutes`;
+  let totalMinutes = 0;
+  const focusData = {};
 
-    updateCalendar();
+  snapshot.forEach((docSnap) => {
+    const data = docSnap.data();
+    const dateKey = docSnap.id;
+    focusData[dateKey] = data.focusTime || 0;
+    totalMinutes += data.focusTime || 0;
+  });
+
+  document.getElementById("totalFocusTime").textContent =
+    `Total focus time: ${totalMinutes} minutes`;
+
+  updateCalendar();
+
+  const grid = document.querySelector(".gridGit");
+  if (!grid) {
+    console.error("Grid container not found");
+    return;
   }
+
+  grid.innerHTML = ""; // Clear old boxes
+
+  const today = new Date();
+  const pastYear = new Date();
+  pastYear.setFullYear(today.getFullYear() - 1);
+
+  for (let i = 0; i < 365; i++) {
+    const date = new Date(pastYear);
+    date.setDate(pastYear.getDate() + i);
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const dateString = `${year}-${month}-${day}`;
+    const minutes = focusData[dateString] || 0;
+
+    const box = document.createElement("div");
+    const levelClass = getLevelClass(minutes);
+    
+    box.className = `grid-box ${levelClass}`;
+    box.title = `${dateString}: ${minutes} min`;
+
+    grid.appendChild(box);
+  }
+
+  function getLevelClass(minutes) {
+    if (minutes >= 180) return "level-4";
+    if (minutes >= 120) return "level-3";
+    if (minutes >= 10) return "level-2";
+    if (minutes > 0) return "level-1";
+    return "";
+  }
+});
+
 });
 
 const randomMotivationalQuotes = ["You are capable of amazing things.", "You will die one day, but your work will live on.", "Believe in yourself and all that you are.", "Your only limit is your mind.", "Dream it. Wish it. Do it.", 
@@ -220,3 +264,6 @@ async function loadLeaderboard() {
 document.addEventListener("DOMContentLoaded", () => {
   loadLeaderboard();
 });
+
+
+

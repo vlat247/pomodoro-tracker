@@ -400,8 +400,44 @@ a {
 .dashboard-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 40px;
+  gap: 30px;
   justify-content: flex-start;
   align-items: flex-start;
   box-sizing: border-box;
+  align-content: left;
 }
+
+/*GitHub alike grid*/
+.githubParody {
+  max-width: 800px;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  font-family: "Press Start 2P", sans-serif;
+  text-align: left;
+  align-items: flex-start;
+}
+
+
+.gridGit {
+  display: grid;
+  grid-template-columns: repeat(53, 12px); /* 53 weeks in a year */
+  grid-template-rows: repeat(7, 12px);     /* 7 days a week */
+  gap: 2px;
+  margin-top: 10px;
+}
+
+/* Base style for each square */
+.grid-box {
+  width: 12px;
+  height: 12px;
+  background-color: #ebedf0;
+  border-radius: 2px;
+}
+
+/* Intensity levels override base */
+.grid-box.level-1 { background-color: #9be9a8; }
+.grid-box.level-2 { background-color: #40c463; }
+.grid-box.level-3 { background-color: #30a14e; }
+.grid-box.level-4 { background-color: #216e39; }
