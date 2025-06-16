@@ -6,20 +6,22 @@ html, body {
 
 body.statistic-page {
   font-family: "Press Start 2P", sans-serif;
-  background-color: #95c9c5;
+  background-color: #171716;
   display: flex;
   overflow: hidden;
   height: 100vh;
 }
 
-
+h2 {
+  color: white;
+}
 body.leaderboard1-page {
   font-family: "Press Start 2P", sans-serif;
   text-align: center;
   align-items: center;
   justify-content: center;
   display: relative;
-  background-color: #95c9c5;
+  background-color: #171716;
 }
 body.shareGarden {
   font-family: "Press Start 2P", sans-serif;
@@ -27,7 +29,7 @@ body.shareGarden {
   align-items: center;
   justify-content: center;
   display: relative;
-  background-color: #95c9c5;
+  background-color: #171716;
 }
 body.friends {
   font-family: "Press Start 2P", sans-serif;
@@ -35,7 +37,7 @@ body.friends {
   align-items: center;
   justify-content: center;
   display: relative;
-  background-color: #95c9c5;
+  background-color: #171716;
 }
 
 .stats-section {
@@ -270,16 +272,18 @@ table {
 .statistic-container {
   width: 270px;
   height: 100vh;
-  background-color: #183f3c;
+  background-color: #171716;
   position: fixed;
   top: 0;
   left: 0;
   border-right: 2px solid #000;
   display: flex;
-  flex-direction: column;
   padding-top: 20px;
   box-sizing: border-box;
   z-index: 100;
+  align-items: center;
+  flex-direction:center;
+  align-content: center;
 }
 
 
@@ -299,7 +303,7 @@ table {
   display: inline-block;
 }
 #leaderboardButton:hover {
-  background-color: #0f2b28;
+  background-color:#1d1d1d;
   transition: 0.2s ;
 }
 
@@ -319,7 +323,7 @@ table {
   display: inline-block;
 }
 #back-to-home:hover {
-  background-color: #0f2b28;
+  background-color: #1d1d1d;
   transition: 0.2s ;
 }
 
@@ -339,7 +343,7 @@ table {
   display: inline-block;
 }
 #friendsButton:hover {
-  background-color: #0f2b28;
+  background-color: #1d1d1d;
   transition: 0.2s ;
 }
 
@@ -359,7 +363,7 @@ table {
   display: inline-block;
 }
 #shareGardenButton:hover {
-  background-color:#0f2b28;
+  background-color: #1d1d1d;
   transition: 0.2s;
 }
 
@@ -379,7 +383,7 @@ table {
   display: inline-block;
 }
 #statistics:hover {
-  background-color:#0f2b28;
+  background-color:#1d1d1d;
   transition: 0.1s;
 }
 
@@ -428,7 +432,6 @@ a {
   margin-top: 10px;
 }
 
-/* Base style for each square */
 .grid-box {
   width: 12px;
   height: 12px;
@@ -436,8 +439,31 @@ a {
   border-radius: 2px;
 }
 
-/* Intensity levels override base */
 .grid-box.level-1 { background-color: #9be9a8; }
 .grid-box.level-2 { background-color: #40c463; }
 .grid-box.level-3 { background-color: #30a14e; }
 .grid-box.level-4 { background-color: #216e39; }
+
+/*Big leaderboard main one*/
+#bigLeaderboardContainer {
+  padding: 20px;
+  background: white;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  max-width: 600px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+  color: black;
+}
+
+#bigLeaderboardContainer .leaderboard-entry {
+  padding: 6px 10px;
+  margin: 5px 0;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  font-size: 16px;
+}
+

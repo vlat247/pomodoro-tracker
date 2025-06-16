@@ -7,13 +7,24 @@ import {
   orderBy,
   limit
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
-
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
 import {
   getAuth,
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
 
+  // Firebase Config
+const firebaseConfig = {
+    apiKey: "AIzaSyCiPV6KfHOKiV7Sgqp0EJzo5GjbnlTwOyQ",
+    authDomain: "pomodoro-garden-d8a0e.firebaseapp.com",
+    projectId: "pomodoro-garden-d8a0e",
+    storageBucket: "pomodoro-garden-d8a0e.appspot.com",
+    messagingSenderId: "669728207501",
+    appId: "1:669728207501:web:4ee7ee5feca6f2cf2868c4",
+    measurementId: "G-SDZN9QN2T0"
+};
 
+const app = initializeApp(firebaseConfig);
 const db = getFirestore();
 const auth = getAuth();
 
@@ -138,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const box = document.createElement("div");
     const levelClass = getLevelClass(minutes);
-    
+
     box.className = `grid-box ${levelClass}`;
     box.title = `${dateString}: ${minutes} min`;
 
@@ -148,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function getLevelClass(minutes) {
     if (minutes >= 180) return "level-4";
     if (minutes >= 120) return "level-3";
-    if (minutes >= 10) return "level-2";
+    if (minutes >= 60) return "level-2";
     if (minutes > 0) return "level-1";
     return "";
   }
@@ -199,7 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
-// Leaderboard
+// Leaderboard mini for homepage
 
 async function loadLeaderboard() {
   const leaderboardContainer = document.getElementById("leaderboard");
@@ -264,6 +275,4 @@ async function loadLeaderboard() {
 document.addEventListener("DOMContentLoaded", () => {
   loadLeaderboard();
 });
-
-
 
