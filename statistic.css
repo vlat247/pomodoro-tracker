@@ -448,29 +448,29 @@ a {
 /*Big leaderboard main one*/
 #bigLeaderboardContainer {
   padding: 20px;
-  background: white;
-  border: 2px solid #ccc;
+  background: #1d1d1d;
+  border: 2px solid #000000;
   border-radius: 10px;
   max-width: 600px;
   margin: 20px auto;
-  font-family: Arial, sans-serif;
-  color: black;
+  font-family: "Press Start 2P", sans-serif;
+  color: #c9c9c9;
 }
 
 #bigLeaderboardContainer .leaderboard-entry {
   padding: 6px 10px;
   margin: 5px 0;
-  background-color: #f0f0f0;
+  background-color: #171717;
   border-radius: 8px;
   display: flex;
   gap: 10px;
   justify-content: space-between;
   font-size: 16px;
+  font-family: "Press Start 2P", sans-serif;
 }
 
 .main-friends-content {
   margin-left: 270px;
-  
 }
 
 #targetUserNameInput {
@@ -516,7 +516,7 @@ a {
 }
 
 #openModal {
-  width: 180px;
+  width: 200px;
   height: 50px;
   border: none;
   border-radius: 5px;
@@ -531,13 +531,13 @@ a {
   font-family: "Press Start 2P", sans-serif;
   text-align: left;
   padding-left: 10px 15px;
+  padding-left: 20px;
 
 }
 #openModal:hover {
   transition: 0.7s;
   transform: scale(1.01);
   background-color: #d83b7d;
-
 }
 
 #friendRequestsContainer {
@@ -627,7 +627,6 @@ a {
   text-align: left;
   box-sizing: border-box;
   margin-left: 5px;
-
 }
 
 #friendsList h3 {
