@@ -38,6 +38,7 @@ body.friends {
   justify-content: center;
   display: relative;
   background-color: #171716;
+  overflow-x: hidden;
 }
 
 .stats-section {
@@ -469,6 +470,7 @@ a {
 
 .main-friends-content {
   margin-left: 270px;
+  
 }
 
 #targetUserNameInput {
@@ -503,29 +505,143 @@ a {
 }
 
 .modalContent {
-  background-color: white;
+  background-color: #1d1d1d;
   padding: 20px 30px;
   border-radius: 10px;
   max-width: 400px;
   width: 90%;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   position: relative;
+  color:#000; 
 }
 
 #openModal {
-  width: 100px;
+  width: 180px;
   height: 50px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
-  top: 0px;
-  left: 0px;
+  margin-left: 10px;
+  position: absolute;
+  top:300px;
+  left: 265px;
+  background-color: #1d1d1d;
+  color:white;
+  font-family: "Press Start 2P", sans-serif;
+  text-align: left;
+  padding-left: 10px 15px;
 
 }
 #openModal:hover {
-  transition: 0.2s;
-  transform: scale(1.06);
-  background-color: #f9dc3a;
+  transition: 0.7s;
+  transform: scale(1.01);
+  background-color: #d83b7d;
 
+}
+
+#friendRequestsContainer {
+  background:#1d1d1d;
+  width: 100vw;
+  height: 100px;
+  margin: 5px;
+  border-radius: 10px;
+
+}
+
+.friend-request {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+
+.friend-request:hover {
+  transform: scale(1.01);
+}
+
+.friend-request p {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.accept-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 16px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.accept-btn:hover {
+  background-color: #45a049;
+}
+
+/* Reject Button */
+.reject-btn {
+  background-color: #f44336;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.reject-btn:hover {
+  background-color: #d32f2f;
+}
+#friendRequestsContainer {
+  margin-top: 30px;
+  padding: 15px 20px;
+  background-color:#1d1d1d;
+  border-radius: 12px;
+  width: 100%;
+  text-align: left;
+  box-sizing: border-box;
+  color: white;
+}
+
+#friendRequestsContainer h3 {
+  font-size: 16px;
+  margin-bottom: 15px;
+  color:  #a5a5a5;
+  text-align: left;
+}
+#friendsList {
+  margin-top: 20px;
+  padding: 15px 20px;
+  background-color: #1d1d1d;
+  border-radius: 12px;
+  max-width: 100%;
+  text-align: left;
+  box-sizing: border-box;
+  margin-left: 5px;
+
+}
+
+#friendsList h3 {
+  font-size: 16px;
+  margin-bottom: 15px;
+  color: #a5a5a5;
+  text-align:left;
+}
+#friendsList div {
+  background-color: #171717;
+  border: 1px solid #000000;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  color:white;
 }

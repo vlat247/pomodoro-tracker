@@ -18,7 +18,9 @@
     addDoc,
     updateDoc,
     Timestamp,
-    deleteDoc
+    deleteDoc,
+    query,
+    where
   } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
   
   // Firebase Config
@@ -153,6 +155,34 @@ function setupFriendUI(currentUserId) {
   loadFriendsUI(currentUserId);
 }
 
+async function loadFriendRequestsUI(userId) {
+  const container = document.getElementById("friendRequestsContainer");
+  container.innerHTML = "<h3>Incoming Friend Requests:</h3>";
+
+  const q = query(collection(db, "friend_requests"),
+    where("to", "==", userId),
+    where("status", "==", "pending")
+  );
+
+  const snapshot = await getDocs(q);
+  if (snapshot.empty) {
+    container.innerHTML += "<p>No pending requests</p>";
+    return;
+  }
+
+  snapshot.forEach(docSnap => {
+    const data = docSnap.data();
+    const div = document.createElement("div");
+    div.innerHTML = `
+      <p>From: ${data.from}</p>
+      <button onclick="handleRespond('${docSnap.id}', '${data.from}', '${data.to}', true)">Accept</button>
+      <button onclick="handleRespond('${docSnap.id}', '${data.from}', '${data.to}', false)">Reject</button>
+    `;
+    container.appendChild(div);
+  });
+}
+
+
 async function loadFriendsUI(userId) {
   const container = document.getElementById("friendsList");
   container.innerHTML = "<h3>Your Friends:</h3>";
@@ -215,3 +245,13 @@ document.addEventListener("DOMContentLoaded", function() {
 document.getElementById("openModal").addEventListener("click", () => {
   document.getElementById("addFriendModal").style.display = "flex";
 });
+
+window.handleRespond = async function(requestId, fromUserId, toUserId, accept) {
+  try {
+    await respondToRequest(requestId, fromUserId, toUserId, accept);
+    loadFriendRequestsUI(toUserId);
+    loadFriendsUI(toUserId);
+  } catch (err) {
+    console.error("Error handling request:", err);
+  }
+};
