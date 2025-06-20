@@ -14,7 +14,24 @@
       <a href="shareGarden.html" id="shareGardenButton">Share Your Garden</a>
       <a href="index.html" id="back-to-home">Back to garden</a>
       <a href="statistic.html" id="statistics">Home statistic</a>
+  </div>
+  <!--All that stuff for friends including modal and other functions-->
+  <div class="main-friends-content">
+  <div id="friendsList"></div>
+  <button id="openModal">Add Friend</button>
+
+  <div id="addFriendModal" class="modal">
+    <div class="modalContent">
+      <span class="close">&times;</span>
+      <h2>Add Friend</h2>
+      <input type="text" id="targetUserNameInput" placeholder="Enter User's name"/>
+      <button id="addFriendButton">Send Friend Request</button>
     </div>
-  
+  </div>
+
+  <div id="friendRequestsContainer"></div>
+</div>
+
+  <script type="module" src="friends.js"></script>
 </body>
 </html>

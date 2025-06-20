@@ -29,7 +29,7 @@ const db = getFirestore();
 const auth = getAuth();
 
 async function loadBigLeaderboard() {
-    console.log("✅ loadBigLeaderboard() is running");
+    console.log("loadBigLeaderboard() is running");
     const type = document.getElementById("leaderboardType").value;
     const container = document.getElementById("bigLeaderboardContainer");
     container.innerHTML = "<h3>Loading leaderboard...</h3>";
@@ -72,9 +72,9 @@ async function loadBigLeaderboard() {
 
       leaderboardData.sort((a, b) => b.totalFocusTime - a.totalFocusTime);
 
-      container.innerHTML = `<h3>Top 10 (${type})</h3>`;
+      container.innerHTML = `<h3>Top 100 (${type})</h3>`;
 
-      leaderboardData.slice(0, 10).forEach((entry, index) => {
+      leaderboardData.slice(0, 100).forEach((entry, index) => {
         const div = document.createElement("div");
         div.className = "leaderboard-entry";
         div.textContent = `${index + 1}. ${entry.name} - ${entry.totalFocusTime} min`;
@@ -85,11 +85,8 @@ async function loadBigLeaderboard() {
         container.innerHTML += "<p>No data for this period.</p>";
       }
 
-      console.log("✅ loadBigLeaderboard script loaded");
-
-      console.log("✅ Rendered leaderboard:", leaderboardData);
     } catch (err) {
-      console.error("❌ Leaderboard Error:", err);
+      console.error("Leaderboard Error:", err);
       container.innerHTML = "<p>Failed to load leaderboard.</p>";
     }
   }
