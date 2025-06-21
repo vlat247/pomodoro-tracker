@@ -335,39 +335,51 @@ function dragStart(event) {
 function setupDragAndDrop() {
   // Make all tiles droppable
   document.querySelectorAll('.tile').forEach(tile => {
-    tile.addEventListener('dragover', event => event.preventDefault());
-
-    tile.addEventListener('drop', async function (event) {
+  tile.addEventListener('dragover', event => {
+    // Only allow drop if tile is empty
+    if (!tile.querySelector('.plant')) {
       event.preventDefault();
-      const plantId = event.dataTransfer.getData("text/plain");
-      const plantElement = document.getElementById(plantId);
-      if (!plantElement) return;
-
-      const inventoryGrid = document.querySelector(".inventory-grid");
-      if (inventoryGrid.contains(plantElement)) {
-        inventoryGrid.removeChild(plantElement);
-      }
-
-      tile.innerHTML = ''; // Clear existing plant
-      tile.appendChild(plantElement);
-
-      const docId = plantElement.dataset.docId;
-      const x = tile.dataset.x;
-      const y = tile.dataset.y;
-      const user = auth.currentUser;
-      if (!user || !docId) return;
-
-      try {
-        const plantRef = doc(db, "users", user.uid, "plants", docId);
-        await updateDoc(plantRef, {
-          position: { x: parseInt(x), y: parseInt(y) },
-          isInInventory: false
-        });
-      } catch (error) {
-        console.error("Error placing plant on tile:", error);
-      }
-    });
+    }
   });
+
+  tile.addEventListener('drop', async function (event) {
+    event.preventDefault();
+
+    
+    if (tile.querySelector('.plant')) {
+      alert("This tile already has a plant!");
+      return;
+    }
+
+    const plantId = event.dataTransfer.getData("text/plain");
+    const plantElement = document.getElementById(plantId);
+    if (!plantElement) return;
+
+    const inventoryGrid = document.querySelector(".inventory-grid");
+    if (inventoryGrid.contains(plantElement)) {
+      inventoryGrid.removeChild(plantElement);
+    }
+
+    tile.appendChild(plantElement); 
+
+    const docId = plantElement.dataset.docId;
+    const x = tile.dataset.x;
+    const y = tile.dataset.y;
+    const user = auth.currentUser;
+    if (!user || !docId) return;
+
+    try {
+      const plantRef = doc(db, "users", user.uid, "plants", docId);
+      await updateDoc(plantRef, {
+        position: { x: parseInt(x), y: parseInt(y) },
+        isInInventory: false
+      });
+    } catch (error) {
+      console.error("Error placing plant on tile:", error);
+    }
+  });
+});
+
 
   // Inventory drop
   const inventory = document.querySelector(".inventory-grid");
