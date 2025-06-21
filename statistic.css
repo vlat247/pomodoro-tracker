@@ -156,16 +156,23 @@ body.friends {
 }
 
 .close {
-    position: absolute;
-    right: 10px;
-    top: 5px;
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  border: 2px;
+  text-shadow:
+    -2px -1px 0 black,
+     2px -1px 0 black,
+    -2px  2px 0 black,
+     2px  2px 0 black;
 }
 
 .close:hover {
-    color: red;
+  color: red;
+  
 }
 
 .getMotivation {
@@ -184,6 +191,16 @@ body.friends {
   border-radius: 4px;
   z-index: 1000;
 }
+
+#motivationQuote {
+  padding: 10px 12px;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(to right, rgb(124, 124, 244), darkorchid) border-box;
+  border-radius: 12px;
+  border: 5px solid transparent;
+}
+
+
 
 .getMotivation:hover {
   background-color: rgba(10, 21, 83, 0.7);
@@ -469,6 +486,8 @@ a {
   font-family: "Press Start 2P", sans-serif;
 }
 
+
+/* Friends section */
 .main-friends-content {
   margin-left: 270px;
 }
@@ -643,4 +662,39 @@ a {
   margin-bottom: 10px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   color:white;
+}
+
+#roflButton {
+  width:200px;
+  height: 50px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 10px;
+  position: absolute;
+  top:500px;
+  left: 565px;
+  background-color: #1d1d1d;
+  color:white;
+  font-family: "Press Start 2P", sans-serif;
+  text-align: left;
+  padding-left: 10px 15px;
+  padding-left: 20px;
+}
+
+select {
+  appearance: none;
+  font: inherit;
+  padding-left: 8px;
+  border:none;
+  border-radius: 8px;
+  width: 220px;
+  height:30px;
+  
+  
+}
+
+label{
+  color: white;
 }

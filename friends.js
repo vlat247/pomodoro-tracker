@@ -255,3 +255,21 @@ window.handleRespond = async function(requestId, fromUserId, toUserId, accept) {
     console.error("Error handling request:", err);
   }
 };
+
+document.getElementById("roflButton").addEventListener("click", function() {
+  alert("AHAHHA maaan what did you hope for?")
+  this.style.display = "none"; 
+})
+
+// Check on page load if the button was already clicked
+if (localStorage.getItem("buttonClicked") === "true") {
+  document.getElementById("magicButton").style.display = "none";
+}
+
+// Handle click event
+document.getElementById("magicButton").addEventListener("click", function () {
+  alert("✨ You clicked it!");
+  this.style.display = "none";
+  localStorage.setItem("buttonClicked", "true"); // Remember the click forever
+});
+

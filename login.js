@@ -191,6 +191,7 @@
     remainingSeconds = minutes * 60;
     sessionStartTime = new Date();
 
+
     countdownInterval = setInterval(() => {
       if (remainingSeconds <= 0) {
         clearInterval(countdownInterval);

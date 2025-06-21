@@ -36,7 +36,52 @@ const nextBtn = document.getElementById("nextBtn");
 let currentDate = new Date();
 let focusData = {};
 
-// My calendar
+function getLevelClass(minutes) {
+  if (minutes >= 180) return "level-4";
+  if (minutes >= 120) return "level-3";
+  if (minutes >= 60) return "level-2";
+  if (minutes > 0) return "level-1";
+  return "";
+}
+
+function updateGithubGrid() {
+  const grid = document.querySelector(".gridGit");
+  if (!grid) return;
+
+  grid.innerHTML = "";
+
+  const today = new Date();
+  const pastYear = new Date();
+  pastYear.setFullYear(today.getFullYear() - 1);
+
+  const gridStart = new Date();
+  gridStart.setDate(gridStart.getDate() - 364);
+
+  for (let i = 0; i < 365; i++) {
+    const date = new Date(gridStart);
+    date.setDate(gridStart.getDate() + i);
+
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const dateString = `${year}-${month}-${day}`;
+    const minutes = focusData[dateString] || 0;
+
+    const box = document.createElement("div");
+    const levelClass = getLevelClass(minutes);
+
+    box.className = `grid-box ${levelClass}`;
+    box.title = `${dateString}: ${minutes} min`;
+
+    if (dateString === new Date().toISOString().split("T")[0]) {
+      box.classList.add("today-box");
+    }
+
+    grid.appendChild(box);
+  }
+}
+
 function updateCalendar() {
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth();
@@ -65,8 +110,7 @@ function updateCalendar() {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     const dateString = `${year}-${month}-${day}`;
-    const activeClass =
-      date.toDateString() === new Date().toDateString() ? "active" : "";
+    const activeClass = date.toDateString() === new Date().toDateString() ? "active" : "";
     datesHtml += `<div class="date ${activeClass}" data-date="${dateString}">${i}</div>`;
   }
 
@@ -101,17 +145,12 @@ nextBtn.addEventListener("click", () => {
   updateCalendar();
 });
 
-// Load focus data on login
-document.addEventListener("DOMContentLoaded", () => {
-  onAuthStateChanged(auth, async (user) => {
-  if (!user) return;
-
-  const uid = user.uid;
-  const focusRef = collection(db, "users", uid, "focusHistory");
+async function loadFocusData(userId) {
+  const focusRef = collection(db, "users", userId, "focusHistory");
   const snapshot = await getDocs(focusRef);
 
   let totalMinutes = 0;
-  const focusData = {};
+  focusData = {};
 
   snapshot.forEach((docSnap) => {
     const data = docSnap.data();
@@ -124,47 +163,15 @@ document.addEventListener("DOMContentLoaded", () => {
     `Total focus time: ${totalMinutes} minutes`;
 
   updateCalendar();
+  updateGithubGrid();
+}
 
-  const grid = document.querySelector(".gridGit");
-  if (!grid) {
-    console.error("Grid container not found");
-    return;
-  }
-
-  grid.innerHTML = ""; // Clear old boxes
-
-  const today = new Date();
-  const pastYear = new Date();
-  pastYear.setFullYear(today.getFullYear() - 1);
-
-  for (let i = 0; i < 365; i++) {
-    const date = new Date(pastYear);
-    date.setDate(pastYear.getDate() + i);
-
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    const dateString = `${year}-${month}-${day}`;
-    const minutes = focusData[dateString] || 0;
-
-    const box = document.createElement("div");
-    const levelClass = getLevelClass(minutes);
-
-    box.className = `grid-box ${levelClass}`;
-    box.title = `${dateString}: ${minutes} min`;
-
-    grid.appendChild(box);
-  }
-
-  function getLevelClass(minutes) {
-    if (minutes >= 180) return "level-4";
-    if (minutes >= 120) return "level-3";
-    if (minutes >= 60) return "level-2";
-    if (minutes > 0) return "level-1";
-    return "";
-  }
-});
-
+// Load data on auth
+document.addEventListener("DOMContentLoaded", () => {
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) return;
+    await loadFocusData(user.uid);
+  });
 });
 
 const randomMotivationalQuotes = ["You are capable of amazing things.", "You will die one day, but your work will live on.", "Believe in yourself and all that you are.", "Your only limit is your mind.", "Dream it. Wish it. Do it.", 
