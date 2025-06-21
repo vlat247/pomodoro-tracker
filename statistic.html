@@ -7,8 +7,15 @@
   <title>Document</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel ="stylesheet" href="statistic.css" />
+  
 </head>
 <body class="statistic-page">
+  <script>
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark-theme");
+    }
+  </script>
+
   <div class="main-content">
       <h2>Keep track of your focused time!</h2>
         <div class="dashboard-container">
@@ -59,6 +66,7 @@
       <a href="shareGarden.html" id="shareGardenButton">Share Your Garden</a>
       <a href="index.html" id="back-to-home">Back to garden</a>
       <a href="statistic.html" id="statistics">Home statistic</a>
+      <button id="themeToggle">Switch theme</button>
     </div>
   </div>
 
@@ -75,6 +83,7 @@
       </div>
     </div>
   </div>
+  
     
     <script type="module" src="login.js"></script>
     <script type ="module" src="statistic.js"></script>

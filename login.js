@@ -191,6 +191,9 @@
     remainingSeconds = minutes * 60;
     sessionStartTime = new Date();
 
+    window.onbeforeunload = function () {
+    return "You have a timer running. Are you sure you want to leave?";
+  };  
 
     countdownInterval = setInterval(() => {
       if (remainingSeconds <= 0) {

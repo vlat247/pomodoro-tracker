@@ -28,6 +28,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore();
 const auth = getAuth();
 
+
 const monthYearElement = document.getElementById("monthYear");
 const datesElement = document.getElementById("dates");
 const prevBtn = document.getElementById("prevBtn");
@@ -283,3 +284,12 @@ document.addEventListener("DOMContentLoaded", () => {
   loadLeaderboard();
 });
 
+
+
+document.getElementById("themeToggle").addEventListener("click", () => {
+  document.body.classList.toggle("dark-theme");
+
+  // Save preference
+  const isDark = document.body.classList.contains("dark-theme");
+  localStorage.setItem("theme", isDark ? "dark" : "light");
+});

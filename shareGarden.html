@@ -8,12 +8,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body class="shareGarden">
+  <script>
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark-theme");
+    }
+  </script>
   <div class="statistic-container">
       <a href="leaderboard1.html" id="leaderboardButton">Leaderboard</a>
       <a href="friends.html" id="friendsButton">Friends</a>
       <a href="shareGarden.html" id="shareGardenButton">Share Your Garden</a>
       <a href="index.html" id="back-to-home">Back to garden</a>
       <a href="statistic.html" id="statistics">Home statistic</a>
+      <button id="themeToggle">Switch theme</button>
     </div>
   
 </body>

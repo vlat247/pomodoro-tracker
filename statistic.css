@@ -4,16 +4,34 @@ html, body {
   padding: 0;
 }
 
+:root {
+  --bg-color: #f6edde;
+  --text-color: #000000;
+  --section-bg: #ffffff;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --hover-color:#e8d4b6;
+  --calendar:#d2d2d2;
+}
+
+body.dark-theme {
+  --bg-color: #171716;
+  --text-color: #ffffff;
+  --section-bg: #2a2a2a;
+  --hover-color:#2f2f2f;
+  --calendar:#4d4d4d;
+  --text-color-lessbright:#a3a1a1;
+}
+
 body.statistic-page {
   font-family: "Press Start 2P", sans-serif;
-  background-color: #171716;
+  background-color: var(--bg-color);
   display: flex;
   overflow: hidden;
   height: 100vh;
 }
 
 h2 {
-  color: white;
+  color: var(--text-color);
 }
 body.leaderboard1-page {
   font-family: "Press Start 2P", sans-serif;
@@ -21,7 +39,7 @@ body.leaderboard1-page {
   align-items: center;
   justify-content: center;
   display: relative;
-  background-color: #171716;
+  background-color: var(--bg-color);
 }
 body.shareGarden {
   font-family: "Press Start 2P", sans-serif;
@@ -29,25 +47,26 @@ body.shareGarden {
   align-items: center;
   justify-content: center;
   display: relative;
-  background-color: #171716;
+  background-color: var(--bg-color);
 }
-body.friends {
+body.friends-page {
   font-family: "Press Start 2P", sans-serif;
   text-align: center;
   align-items: center;
   justify-content: center;
   display: relative;
-  background-color: #171716;
+  background-color: var(--bg-color);
   overflow-x: hidden;
 }
 
 .stats-section {
-  background-color: rgb(255, 255, 255);
+  background-color: var(--bg-color);
   padding: 20px;
   border-radius: 10px;
   text-align: left;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px var(--shadow);
   width: 300px;
+  color:var(--text-color);
 }
 .calendar {
   width: 430px;
@@ -55,9 +74,9 @@ body.friends {
   display: flex;
   flex-direction: column;
   padding: 10px;
-  background: #ffffff;
+  background: var(--bg-color);
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px var(--shadow);
 }
 
 .header {
@@ -65,6 +84,7 @@ body.friends {
   justify-content: space-between;
   align-items: center;
   padding: 10px;
+  color: var(--text-color)
 }
 
 .monthYear {
@@ -78,12 +98,13 @@ body.friends {
   justify-content: center;
   align-items: center;
   border: none;
-  background: #fff;
+  background: var(--bg-color);
   cursor: pointer;
   border-radius: 30%;
   width: 40px;
   height:40px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 4px var(--shadow);
+  color: var(--text-color)
 }
 
 .days{
@@ -94,7 +115,7 @@ body.friends {
 .day {
   text-align: center;
   padding: 5px;
-  color:rgba(0, 0, 0);
+  color:var(--text-color);
   font-weight: 500;
 }
 
@@ -116,6 +137,7 @@ body.friends {
     width: 40px;
     height: 40px;
     transition: 0.2s;
+    color: var(--text-color-lessbright);
 }
 
 .date:hover,
@@ -125,7 +147,7 @@ body.friends {
 }
 
 .date.inactive {
-    color: #d2d2d2;
+    color: var(--calendar);
 }
 
 .date.inactive:hover {
@@ -141,11 +163,12 @@ body.friends {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.7);
-}
+    background-color: var(--bg-color);
+    color:var(--text-color);
+  }
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: var(--bg-color);
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
@@ -183,10 +206,10 @@ body.friends {
 
   font-family: "Press Start 2P", sans-serif;
   font-size: 14px;
-  color: #95c9c5;
+  color: var(--text-color);
   text-decoration: none;
   padding: 8px 12px;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: var(--bg-color);
   border: 2px solid #184e3d9c;
   border-radius: 4px;
   z-index: 1000;
@@ -194,10 +217,11 @@ body.friends {
 
 #motivationQuote {
   padding: 10px 12px;
-  background: linear-gradient(white, white) padding-box,
+  background: linear-gradient(var(--bg-color),var(--bg-color)) padding-box,
               linear-gradient(to right, rgb(124, 124, 244), darkorchid) border-box;
   border-radius: 12px;
   border: 5px solid transparent;
+  color: var(--text-color)
 }
 
 
@@ -208,11 +232,12 @@ body.friends {
 }
 
 .leaderboard {
-  background-color: rgb(255, 255, 255);
+  background-color: var(--bg-color);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   width: 300px;
+  color:var(--text-color);
 }
 
 table {
@@ -222,14 +247,16 @@ table {
   padding: 10px;
   border-radius: 8px;
   margin-top: 15px;
+  color: var(--text-color);
 }
 
 .leaderboard-entry {
   padding: 15px;
   margin: 5px 0;
-  background-color:#f2f2f2;
+  background-color:var(--bg-color);
   border: 5px solid #000000;
   border-radius: 10px;
+  color:var(--text-color-lessbright);
 }
 
 .leaderboard-entry:nth-child(2) { /* 1st place */
@@ -262,7 +289,7 @@ table {
 .entry-rank {
   width: 40px;
   display: inline-block;
-  color: #000000;
+  color: var(--text-color-lessbright);
   font-size: 15px;
 }
 
@@ -290,7 +317,7 @@ table {
 .statistic-container {
   width: 270px;
   height: 100vh;
-  background-color: #171716;
+  background-color: var(--bg-color);
   position: fixed;
   top: 0;
   left: 0;
@@ -302,6 +329,7 @@ table {
   align-items: center;
   flex-direction:center;
   align-content: center;
+  color:var(--text-color)
 }
 
 
@@ -311,8 +339,8 @@ table {
   left: 20px;
   font-family: "Press Start 2P", sans-serif;
   font-size: 15px;
-  color: #ffffff;
-  background-color: rgba(0, 0, 0, 0);
+  color: var(--text-color);
+  background-color: var(--bg-color);
   padding: 12px 12px;
   border: 2px;
   width:210px;
@@ -321,7 +349,7 @@ table {
   display: inline-block;
 }
 #leaderboardButton:hover {
-  background-color:#1d1d1d;
+  background-color:var(--hover-color);
   transition: 0.2s ;
 }
 
@@ -332,7 +360,7 @@ table {
   font-family: "Press Start 2P", sans-serif;
   font-size: 15px;
   color: #ffee00;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: var(--bg-color);
   padding: 12px 12px;
   border: 2px;
   width:210px;
@@ -341,7 +369,7 @@ table {
   display: inline-block;
 }
 #back-to-home:hover {
-  background-color: #1d1d1d;
+  background-color: var(--hover-color);
   transition: 0.2s ;
 }
 
@@ -351,8 +379,8 @@ table {
   left: 20px;
   font-family: "Press Start 2P", sans-serif;
   font-size: 15px;
-  color: #ffffff;
-  background-color: rgba(0, 0, 0, 0);
+  color: var(--text-color);
+  background-color: var(--bg-color);
   padding: 12px 12px;
   border: 2px;
   width:210px;
@@ -361,7 +389,7 @@ table {
   display: inline-block;
 }
 #friendsButton:hover {
-  background-color: #1d1d1d;
+  background-color: var(--hover-color);
   transition: 0.2s ;
 }
 
@@ -371,8 +399,8 @@ table {
   left: 20px;
   font-family: "Press Start 2P", sans-serif;
   font-size: 15px;
-  color: #ffffff;
-  background-color: rgba(0, 0, 0, 0);
+  color:var(--text-color);
+  background-color: var(--bg-color);
   padding: 12px 12px;
   border: 2px;
   width:210px;
@@ -381,7 +409,7 @@ table {
   display: inline-block;
 }
 #shareGardenButton:hover {
-  background-color: #1d1d1d;
+  background-color: var(--hover-color);
   transition: 0.2s;
 }
 
@@ -391,8 +419,8 @@ table {
   left: 20px;
   font-family: "Press Start 2P", sans-serif;
   font-size: 15px;
-  color: #ffffff;
-  background-color: rgba(0, 0, 0, 0);
+  color: var(--text-color);
+  background-color: var(--bg-color);
   padding: 12px 12px;
   border: 2px;
   width:210px;
@@ -401,7 +429,7 @@ table {
   display: inline-block;
 }
 #statistics:hover {
-  background-color:#1d1d1d;
+  background-color:var(--hover-color);
   transition: 0.1s;
 }
 
@@ -433,12 +461,13 @@ a {
 .githubParody {
   max-width: 800px;
   padding: 10px;
-  background-color: #ffffff;
+  background-color:var(--bg-color);
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  box-shadow: 0 0 10px rgba(0,0,0,0.6);
   font-family: "Press Start 2P", sans-serif;
   text-align: left;
   align-items: flex-start;
+  color: var(--text-color);
 }
 
 
@@ -453,8 +482,10 @@ a {
 .grid-box {
   width: 12px;
   height: 12px;
-  background-color: #ebedf0;
+  background-color:var(--hover-color);
   border-radius: 2px;
+  margin: 1px;
+  padding: 0.1px;
 }
 
 .grid-box.level-1 { background-color: #9be9a8; }
@@ -465,19 +496,19 @@ a {
 /*Big leaderboard main one*/
 #bigLeaderboardContainer {
   padding: 20px;
-  background: #1d1d1d;
+  background: var(--bg-color);
   border: 2px solid #000000;
   border-radius: 10px;
   max-width: 600px;
   margin: 20px auto;
   font-family: "Press Start 2P", sans-serif;
-  color: #c9c9c9;
+  color: var(--text-color);
 }
 
 #bigLeaderboardContainer .leaderboard-entry {
   padding: 6px 10px;
   margin: 5px 0;
-  background-color: #171717;
+  background-color: var(--bg-color);
   border-radius: 8px;
   display: flex;
   gap: 10px;
@@ -494,7 +525,7 @@ a {
 
 #targetUserNameInput {
   width: 100px;
-  background-color: #ffffff;
+  background-color: var(--bg-color);
   border-radius: 4px;
   border: 3px solid #f9dc3a
 }
@@ -524,14 +555,14 @@ a {
 }
 
 .modalContent {
-  background-color: #1d1d1d;
+  background-color: var(--bg-color);
   padding: 20px 30px;
   border-radius: 10px;
   max-width: 400px;
   width: 90%;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   position: relative;
-  color:#000; 
+  color:var(--text-color); 
 }
 
 #openModal {
@@ -545,8 +576,8 @@ a {
   position: absolute;
   top:300px;
   left: 265px;
-  background-color: #1d1d1d;
-  color:white;
+  background-color: var(--hover-color);
+  color:var(--text-color);
   font-family: "Press Start 2P", sans-serif;
   text-align: left;
   padding-left: 10px 15px;
@@ -560,16 +591,17 @@ a {
 }
 
 #friendRequestsContainer {
-  background:#1d1d1d;
+  background:var(--hover-color);
   width: 100vw;
   height: 100px;
   margin: 5px;
   border-radius: 10px;
+  color: var(--text-color);
 
 }
 
 .friend-request {
-  background-color: #ffffff;
+  background-color: var(--hover-color);
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 15px 20px;
@@ -623,24 +655,24 @@ a {
 #friendRequestsContainer {
   margin-top: 30px;
   padding: 15px 20px;
-  background-color:#1d1d1d;
+  background-color:var(--hover-color);
   border-radius: 12px;
   width: 100%;
   text-align: left;
   box-sizing: border-box;
-  color: white;
+  color: var(--text-color);
 }
 
 #friendRequestsContainer h3 {
   font-size: 16px;
   margin-bottom: 15px;
-  color:  #a5a5a5;
+  color:  var(--text-color);
   text-align: left;
 }
 #friendsList {
   margin-top: 20px;
   padding: 15px 20px;
-  background-color: #1d1d1d;
+  background-color: var(--hover-color);
   border-radius: 12px;
   max-width: 100%;
   text-align: left;
@@ -651,17 +683,17 @@ a {
 #friendsList h3 {
   font-size: 16px;
   margin-bottom: 15px;
-  color: #a5a5a5;
+  color: var(--text-color);
   text-align:left;
 }
 #friendsList div {
-  background-color: #171717;
+  background-color: var(--bg-color);
   border: 1px solid #000000;
   padding: 10px 15px;
   border-radius: 8px;
   margin-bottom: 10px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  color:white;
+  color:var(--text-color);
 }
 
 #roflButton {
@@ -675,8 +707,8 @@ a {
   position: absolute;
   top:500px;
   left: 565px;
-  background-color: #1d1d1d;
-  color:white;
+  background-color: var(--bg-color);
+  color:var(--text-color);
   font-family: "Press Start 2P", sans-serif;
   text-align: left;
   padding-left: 10px 15px;
@@ -696,5 +728,18 @@ select {
 }
 
 label{
-  color: white;
+  color: var(--text-color);
+}
+
+#themeToggle {
+  font:inherit;
+  position:relative;
+  bottom: -340px;
+  left:20px;
+  border: none;
+  border-radius: 4px;
+  height:auto;
+  padding:5px 10px;
+  background-color: var(--hover-color);
+
 }

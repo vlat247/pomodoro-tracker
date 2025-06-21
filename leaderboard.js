@@ -52,16 +52,25 @@ async function loadBigLeaderboard() {
         focusSnap.forEach(doc => {
           const data = doc.data();
           const focusTime = data.focusTime || 0;
-          const timestamp = data.timestamp?.toDate?.();
-          if (!timestamp) return;
+          const dateKey = doc.id;
+          const dateParts = dateKey.split("-");
 
-          const isInPeriod =
-            (type === "day" && timestamp >= startOfDay) ||
-            (type === "week" && timestamp >= startOfWeek);
+          if (dateParts.length === 3) {
+            const date = new Date(
+              parseInt(dateParts[0]),
+              parseInt(dateParts[1]) - 1,
+              parseInt(dateParts[2])
+            );
 
-          if (isInPeriod) {
-            totalMinutes += focusTime;
+            const isInPeriod =
+              (type === "day" && date >= startOfDay) ||
+              (type === "week" && date >= startOfWeek);
+
+            if (isInPeriod) {
+              totalMinutes += focusTime;
+            }
           }
+
         });
 
         leaderboardData.push({
@@ -97,3 +106,11 @@ async function loadBigLeaderboard() {
   });
 
   console.log("✅ loadBigLeaderboard script loaded");
+
+  document.getElementById("themeToggle").addEventListener("click", () => {
+  document.body.classList.toggle("dark-theme");
+
+  // Save preference
+  const isDark = document.body.classList.contains("dark-theme");
+  localStorage.setItem("theme", isDark ? "dark" : "light");
+});
