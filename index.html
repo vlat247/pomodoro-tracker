@@ -3,7 +3,7 @@
 <head>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <meta charset="UTF-8" />
-    <meta name="viewpoint" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pomodoro Garden</title>
   <link rel="stylesheet" href="style.css" />
 
@@ -15,7 +15,7 @@
     <input type="number" id="customMinutes" min="1" placeholder="e.g. 25" />
     <button id="customTimeButton" onclick="setCustomTime()">Set Timer</button>
   </div>
-
+  
   <div id="timer">
     <span id="minutes">25</span><span id='colon'>:</span><span id="seconds">00</span>
   </div>
@@ -44,6 +44,10 @@
   </div>
   <div class="emporium-button-wrapper">
     <button data-open-emporium id='emporium-button'>Emporium</button>
+  </div>
+  <div class="subject-wrapper">
+    <button data-open-subject id="choose-subject-button">Choose subject</button>
+  </div>
 </header>
 
 
@@ -251,8 +255,28 @@
 </div>
 
 
+<!--Choose focus subject-->
+<div id="chooseSubjectModal" class="modal">
+  <div class="chooseSubjectModalContent">
+    <span class="close">&times;</span>
 
-<script src="script.js"></script>
+    <label id="chooseYourSubject">Choose your subject:</label>
+    <select id="Subjects">
+      <option></option>
+    </select>
+    <div id="createSubjectContainer">
+      <input type="text" name="name your subject">
+      <button id="createSubject">Create new subject</button>
+    </div>
+    <div id="yourSubjects">
+      <h3>Your subjects:</h3> 
+    </div>
+  </div>
+</div>
+
+
+
+<script type="module" src="script.js" defer></script>
 <script type="module" src="login.js" defer></script>
 </body>
 

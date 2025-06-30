@@ -636,3 +636,40 @@ async function updateUserMoney(userId, newMoneyAmount) {
   await setDoc(userDocRef, { money: newMoneyAmount }, { merge: true });
 }
 
+//choose subject logic
+
+document.addEventListener("DOMContentLoaded", function() {
+  const modalSubject = document.getElementById("chooseSubjectModal");
+  const closeBtn = document.querySelector('#chooseSubjectModal .close');
+  const modalTriggers = document.querySelectorAll('[data-open-subject]');
+  const subjectButton = document.getElementById('choose-subject-button');
+
+  function openSubjectModal() {
+    modalSubject.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    subjectButton.style.display = 'none';
+  }
+
+  function closeSubjectModal() {
+    modalSubject.style.display = 'none';
+    document.body.style.overflow = '';
+    subjectButton.style.display = 'block';
+  }
+  
+  modalTriggers.forEach(trigger =>{
+    trigger.addEventListener('click', openSubjectModal);
+  });
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeSubjectModal);
+  }
+  window.addEventListener('click', function(event) {
+    if (event.target === modalSubject) {
+      closeSubjectModal();
+    }
+  });
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && modalSubject.style.display === 'block') { 
+      closeSubjectModal();
+    }
+  });
+})

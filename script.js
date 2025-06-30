@@ -137,5 +137,3 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
-
-

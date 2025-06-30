@@ -55,7 +55,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* ✨ vertical centering */
+  height: 100%; 
   width: 100%;
   position: relative;
   overflow: visible;
@@ -110,7 +110,7 @@ button {
   background-repeat: no-repeat;
   border-radius: 6px;
   cursor: grab;
-  
+  z-index: 1000;
 }
 
 .plant-icon:active {
@@ -133,14 +133,34 @@ button {
   width: 90px;
   transform:rotate(-45deg) skewY(0deg) scale(1.3);
 }
+
+.plant-icon.orange {
+  transform:rotate(-45deg) skewY(0deg) scale(1.3);
+
+}
+
+.plant-icon.bush {
+  transform:rotate(-45deg) skewY(0deg) scale(1.7) scaleY(1.5) ;
+}
+
+.plant-icon.flower2 {
+  transform:rotate(-45deg) skewY(0deg) scale(1.6)  ;
+}
+.plant-icon.tree {
+  transform:rotate(-45deg) skewY(0deg) scale(1.7) scaleY(1.3) ;
+}
+
+.plant-icon.sigma-boy {
+  transform:rotate(-45deg) skewY(0deg) scale(1.7) scaleY(1.2) ;
+}
 /* Plant type classes */
-.plant-icon.flower { background-image: url('graphics/jingles.png'); }
-.plant-icon.cactus { background-image: url('graphics/yellowbro.png') }
-.plant-icon.tree { background-image: url('graphics/tree.png'); }
-.plant-icon.bush { background-image: url('graphics/bush.png'); }
-.plant-icon.flower2 { background-image: url('graphics/flower2.png'); }
-.plant-icon.orange { background-image: url('graphics/orange.jpg'); }
-.plant-icon.sigma-boy { background-image: url('graphics/sunflowerglasses.jpg');}
+.plant-icon.flower { background-image: url('graphics/jingles1.png'); }
+.plant-icon.cactus { background-image: url('graphics/chillbro.png') }
+.plant-icon.tree { background-image: url('graphics/dolgar.png'); }
+.plant-icon.bush { background-image: url('graphics/real-bush.png'); }
+.plant-icon.flower2 { background-image: url('graphics/orange.jpg'); }
+.plant-icon.orange { background-image: url('graphics/tomate1.png'); }
+.plant-icon.sigma-boy { background-image: url('graphics/baklazhan.png');}
 
 
 #register-link {
@@ -278,6 +298,7 @@ button {
   right: 20px;
   bottom: 20px;
   position: fixed;
+  z-index: 1000;
 }
 #aboutApp {
   font-family: "Press Start 2P", sans-serif;
@@ -288,6 +309,7 @@ button {
   background-color: rgba(0, 0, 0, 0.6);
   border: 2px solid #3191059c;
   border-radius: 4px;
+  z-index: 1000;
 }
 
 
@@ -587,4 +609,27 @@ button .data-price {
 #customMinutes {
   font:inherit;
   width: 100px;
+}
+
+/*Modal choose subject*/
+.subject-wrapper {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 998;
+}
+
+#choose-subject-button {
+  position: fixed; 
+  top: 51px;
+  left: 170px;
+  font-family: "Press Start 2P", sans-serif;
+  font-size: 14px;
+  color: #5dac09;
+  text-decoration: none;
+  padding: 8px 12px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border: 2px solid #3191059c;
+  border-radius: 4px;
+  z-index: 900;
 }
