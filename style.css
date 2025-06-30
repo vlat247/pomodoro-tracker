@@ -51,52 +51,91 @@ button {
   color: #ffffff;
 }
 
-.solid-grid {
-  display: grid;
-  grid-template-rows: repeat(8, 40px);
-  
-  gap: 1px;
-  margin: 20px auto;
-  width: fit-content;
-  transform: rotateX(45deg) rotateZ(45deg); 
+.grid-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* ✨ vertical centering */
+  width: 100%;
+  position: relative;
+  overflow: visible;
 }
 
-.tile {
-  width: 40px;
-  height: 40px;
-  background-color: #5a3e1b; 
-  border: 1px solid #3b2a10;
-  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.5);
+.solid-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotateX(45deg) rotateZ(45deg);
+  transform-style: preserve-3d;
+  perspective: 800px;
 }
+
+
+ 
+.tile {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+
+  background-image: url(/graphics/soil.png);
+  background-size: 300%;
+  background-position: 50%;
+  border: none;
+}
+
+
+
 
 
 #plant-grid {
   display: grid;
-  grid-template-columns: repeat(8, 40px);
-  grid-gap: 0px;
+  grid-template-columns: repeat(8, 50px);
+  grid-template-rows: repeat(8, 50px); /* this ensures height is predictable */
+  gap: 0px;
 }
-
 
 .solid-grid .plant-icon {
   transform: rotate(-45deg) skewY(0deg);
 }
 
 .plant-icon {
-  width: 30px;
+  width: 40px;
   height: 40px;
-  background-size: cover;
+  background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
   border-radius: 6px;
   cursor: grab;
+  
 }
 
 .plant-icon:active {
   cursor: grabbing;
 }
 
+.plant-icon.cactus {
+  width: 60px;
+  height: 60px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 6px;
+  cursor: grab;
+  transform:rotate(-45deg) skewY(0deg) scale(1.6);
+  
+}
+
+.plant-icon.flower {
+  width: 90px;
+  transform:rotate(-45deg) skewY(0deg) scale(1.3);
+}
 /* Plant type classes */
-.plant-icon.flower { background-image: url('graphics/flower.png'); }
-.plant-icon.cactus { background-image: url('graphics/cactus.png'); }
+.plant-icon.flower { background-image: url('graphics/jingles.png'); }
+.plant-icon.cactus { background-image: url('graphics/yellowbro.png') }
 .plant-icon.tree { background-image: url('graphics/tree.png'); }
 .plant-icon.bush { background-image: url('graphics/bush.png'); }
 .plant-icon.flower2 { background-image: url('graphics/flower2.png'); }
@@ -506,11 +545,13 @@ button .data-price {
 #exchangeGrid {
   bottom: 100px;
   position: fixed;
-  left: 100px;
-  width: 60px;
-  height: 60px;
-  background-color: #5a3e1b; 
-  border: 1px solid #3b2a10;
+  left: 55px;
+  width: 150px;
+  height: 120px;
+  background-image: url(./graphics/trash-bin.png);
+  background-position: center;
+  background-size: contain;         
+  background-repeat: no-repeat;
   box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.5);
   z-index: 2000;
 }
