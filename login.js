@@ -734,7 +734,16 @@ window.addEventListener('load', function () {
 
         const div = document.createElement("div");
         div.textContent = `${data.name} — Focused ${formatTime(data.totalTime || 0)}`;
+        div.classList.add("subject-item");
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.classList.add("deleteSubject");
+        deleteBtn.textContent = "Delete";
+
+        deleteBtn.addEventListener("click", () => deleteSubject(docSnap.id));
+        
         list.appendChild(div);
+        list.appendChild(deleteBtn);
       });
     } catch (err) {
       console.error("Error loading subjects:", err);
@@ -750,4 +759,19 @@ window.addEventListener('load', function () {
   if (trigger) {
     trigger.addEventListener('click', loadSubjects);
   }
+
+  async function deleteSubject() {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    try {
+      const subjectDocRef = doc(db, "users", user.uid, "subjects", subjectId);
+      await deleteDoc(subjectDocRef);
+      console.log("You deleted!");
+    } catch (err) {
+      console.error("Failed to delete", err);
+    }
+  }
+
 });
+
