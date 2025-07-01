@@ -633,3 +633,9 @@ button .data-price {
   border-radius: 4px;
   z-index: 900;
 }
+
+
+.subject-item.selected {
+  background-color: #d1e7dd; /* light green */
+  border: 2px solid #0f5132;
+}

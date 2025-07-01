@@ -677,22 +677,17 @@ document.addEventListener("DOMContentLoaded", function() {
 //now choose subject logic
 window.addEventListener('load', function () {
   const createBtn = document.getElementById('createSubject');
-  const dropdown = document.getElementById('Subjects');
   const list = document.getElementById('yourSubjects');
-  const input = document.getElementById('newSubjectInput');
+  
 
-  console.log("createBtn:", createBtn);
-  console.log("input:", input);
-  console.log("dropdown:", dropdown);
-  console.log("list:", list);
-
-  if (!createBtn || !input || !dropdown || !list) {
+ 
+  if (!createBtn || !list) {
     console.error("One or more elements not found in DOM");
     return;
   }
 
   createBtn.addEventListener('click', async () => {
-    const subjectName = input.value.trim();
+    const subjectName = prompt("Enter subject name:").trim();
     const user = auth.currentUser;
 
     if (!user) return alert("You must be logged in!");
@@ -705,7 +700,7 @@ window.addEventListener('load', function () {
         totalTime: 0
       });
 
-      input.value = "";
+      
       console.log(`Subject "${subjectName}" added.`);
       loadSubjects();
     } catch (err) {
@@ -716,25 +711,49 @@ window.addEventListener('load', function () {
   async function loadSubjects() {
     const user = auth.currentUser;
     if (!user) return;
+  
 
     try {
       const subjectRef = collection(db, "users", user.uid, "subjects");
       const querySnapshot = await getDocs(subjectRef);
 
-      dropdown.innerHTML = '<option></option>';
+      
       list.innerHTML = '<h3>Your subjects:</h3>';
+
+      if (querySnapshot.empty) {
+        const emptyMessage = document.createElement("div")
+        emptyMessage.textContent = "You don't have any subjects to focus on, try to create one!"
+        list.appendChild(emptyMessage);
+        return;
+      }
 
       querySnapshot.forEach(docSnap => {
         const data = docSnap.data();
 
-        const option = document.createElement("option");
-        option.value = docSnap.id;
-        option.textContent = data.name;
-        dropdown.appendChild(option);
-
         const div = document.createElement("div");
-        div.textContent = `${data.name} — Focused ${formatTime(data.totalTime || 0)}`;
-        div.classList.add("subject-item");
+        div.classList.add("subject-item")
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.name = "selectedSubject";
+        checkbox.value = docSnap.id
+
+        //how tf it works expolre later
+        checkbox.addEventListener('change', ()=> {
+          document.querySelectorAll('input[name="selectedSubject"]').forEach(cb => {
+            if (cb !== checkbox) cb.checked = false;
+          });
+
+          console.log("Selected subject:", docSnap.id);
+
+          let selectedSubjectId = null;
+          selectedSubjectId = docSnap.id;
+
+        
+        });
+
+        const label = document.createElement("div");
+        label.textContent = `${data.name} — Focused ${formatTime(data.totalTime || 0)}`;
 
         const deleteBtn = document.createElement("button");
         deleteBtn.classList.add("deleteSubject");
@@ -742,8 +761,12 @@ window.addEventListener('load', function () {
 
         deleteBtn.addEventListener("click", () => deleteSubject(docSnap.id));
         
+        div.appendChild(label);
+        div.appendChild(deleteBtn);
+        div.appendChild(checkbox);
+
         list.appendChild(div);
-        list.appendChild(deleteBtn);
+
       });
     } catch (err) {
       console.error("Error loading subjects:", err);
@@ -760,7 +783,7 @@ window.addEventListener('load', function () {
     trigger.addEventListener('click', loadSubjects);
   }
 
-  async function deleteSubject() {
+  async function deleteSubject(subjectId) {
     const user = auth.currentUser;
     if (!user) return;
 
@@ -768,6 +791,7 @@ window.addEventListener('load', function () {
       const subjectDocRef = doc(db, "users", user.uid, "subjects", subjectId);
       await deleteDoc(subjectDocRef);
       console.log("You deleted!");
+      loadSubjects();
     } catch (err) {
       console.error("Failed to delete", err);
     }
