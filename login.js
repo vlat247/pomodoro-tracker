@@ -636,7 +636,7 @@ async function updateUserMoney(userId, newMoneyAmount) {
   await setDoc(userDocRef, { money: newMoneyAmount }, { merge: true });
 }
 
-//choose subject logic
+//choose subject modal
 
 document.addEventListener("DOMContentLoaded", function() {
   const modalSubject = document.getElementById("chooseSubjectModal");
@@ -673,3 +673,81 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 })
+
+//now choose subject logic
+window.addEventListener('load', function () {
+  const createBtn = document.getElementById('createSubject');
+  const dropdown = document.getElementById('Subjects');
+  const list = document.getElementById('yourSubjects');
+  const input = document.getElementById('newSubjectInput');
+
+  console.log("createBtn:", createBtn);
+  console.log("input:", input);
+  console.log("dropdown:", dropdown);
+  console.log("list:", list);
+
+  if (!createBtn || !input || !dropdown || !list) {
+    console.error("One or more elements not found in DOM");
+    return;
+  }
+
+  createBtn.addEventListener('click', async () => {
+    const subjectName = input.value.trim();
+    const user = auth.currentUser;
+
+    if (!user) return alert("You must be logged in!");
+    if (!subjectName) return alert("Enter a subject name!");
+
+    try {
+      const subjectRef = collection(db, "users", user.uid, "subjects");
+      await addDoc(subjectRef, {
+        name: subjectName,
+        totalTime: 0
+      });
+
+      input.value = "";
+      console.log(`Subject "${subjectName}" added.`);
+      loadSubjects();
+    } catch (err) {
+      console.error("Error adding subject:", err);
+    }
+  });
+
+  async function loadSubjects() {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    try {
+      const subjectRef = collection(db, "users", user.uid, "subjects");
+      const querySnapshot = await getDocs(subjectRef);
+
+      dropdown.innerHTML = '<option></option>';
+      list.innerHTML = '<h3>Your subjects:</h3>';
+
+      querySnapshot.forEach(docSnap => {
+        const data = docSnap.data();
+
+        const option = document.createElement("option");
+        option.value = docSnap.id;
+        option.textContent = data.name;
+        dropdown.appendChild(option);
+
+        const div = document.createElement("div");
+        div.textContent = `${data.name} — Focused ${formatTime(data.totalTime || 0)}`;
+        list.appendChild(div);
+      });
+    } catch (err) {
+      console.error("Error loading subjects:", err);
+    }
+  }
+
+  function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    return mins + " min";
+  }
+
+  const trigger = document.querySelector('[data-open-subject]');
+  if (trigger) {
+    trigger.addEventListener('click', loadSubjects);
+  }
+});
