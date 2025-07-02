@@ -1,49 +1,5 @@
 
-let minutes = 0;
-let seconds = 1;
-let timerInterval;
-let isRunning = false;
 
-function updateDisplay() {
-  document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
-  document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
-}
-
-function setCustomTime() {
-  const input = document.getElementById("customMinutes").value;
-  const parsed = parseInt(input);
-  if (!isNaN(parsed) && parsed > 0) {
-    minutes = parsed;
-    seconds = 0;
-    updateDisplay();
-  } else {
-    alert("Please enter a valid number of minutes.");
-  }
-}
-
-function startTimer() {
-  if (isRunning) return;
-  isRunning = true;
-
-  timerInterval = setInterval(() => {
-    if (seconds === 0) {
-      if (minutes === 0) {
-        clearInterval(timerInterval);
-        isRunning = false;
-        alert("Pomodoro complete!");
-        growPlant(); 
-        return;
-      } else {
-        minutes--;
-        seconds = 59;
-      }
-    } else {
-      seconds--;
-    }
-
-    updateDisplay();
-  }, 1000);
-}
 
 function pauseTimer() {
   clearInterval(timerInterval);

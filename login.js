@@ -47,7 +47,7 @@
   window.auth = auth;
   window.db = db;
  
- 
+  let selectedSubjectId = null;
   document.addEventListener('DOMContentLoaded', () => {
     setupUIListeners();
     setupAuthStateListener();
@@ -202,8 +202,9 @@
         const durationMinutes = Math.round((sessionEndTime - sessionStartTime) / 60000);
         saveFocusSession(sessionStartTime, sessionEndTime, durationMinutes);
         saveDailyFocus(durationMinutes);
+        saveSubjectFocusTime(durationMinutes);
         growPlant();
-        alert("Pomodoro complete! Time to grow your plant!");
+        alert("Session has ended! Check your inventory!");
         return;
       }
       remainingSeconds--;
@@ -234,6 +235,29 @@
       .catch(err => console.error("Error saving session:", err));
   }
 
+function saveSubjectFocusTime(minutes) {
+    const userId = currentUser?.uid;
+    if (!userId) return console.error("User not authenticated!");
+    if (!selectedSubjectId) return console.warn("No subject selected!");
+
+    const subjectRef = doc(db, "users", userId, "subjects", selectedSubjectId);
+
+    runTransaction(db,async(transaction) => {
+      const subjectSnap = await transaction.get(subjectRef);
+      if (!subjectSnap.exists()) {
+      throw "Subject does not exist!";
+      }
+      
+       const currentTotal = subjectSnap.data().totalTime || 0;
+    transaction.update(subjectRef, {
+      totalTime: currentTotal + minutes * 60 // convert minutes to seconds!
+    });
+  })
+    .then(() => console.log("Subject time updated successfully!"))
+    .catch(err => console.error("Error updating subject time:", err));
+}
+
+
   function saveDailyFocus(minutes) {
     const userId = currentUser?.uid;
     if (!userId) return console.error("User not authenticated!");
@@ -250,7 +274,7 @@
       .catch(error => console.error("Error saving focus time:", error));
   }
 
-
+//
 // STUFF TO SAVE PLANTS and load plants
 // STUFF TO SAVE PLANTS and load plants
 async function loadPlants() {
@@ -746,7 +770,7 @@ window.addEventListener('load', function () {
 
           console.log("Selected subject:", docSnap.id);
 
-          let selectedSubjectId = null;
+          
           selectedSubjectId = docSnap.id;
 
         
