@@ -305,6 +305,7 @@ function renderPlant(plant, docId) {
   const inventory = document.getElementById("inventoryModal");
 
   if (plant.isInInventory) {
+    
     if (inventory) {
       inventory.appendChild(plantElement);
     } else {
@@ -416,6 +417,7 @@ function setupDragAndDrop() {
       console.log("Ignored inventory drop: it's on exchange grid");
       return;
     }
+    
 
     event.preventDefault();
     event.stopPropagation();
@@ -761,6 +763,9 @@ window.addEventListener('load', function () {
         checkbox.type = "checkbox";
         checkbox.name = "selectedSubject";
         checkbox.value = docSnap.id
+        checkbox.classList.add("checkbox");
+
+        div.appendChild(checkbox);
 
         //how tf it works expolre later
         checkbox.addEventListener('change', ()=> {
@@ -776,7 +781,7 @@ window.addEventListener('load', function () {
         
         });
 
-        const label = document.createElement("div");
+        const label = document.createElement("span");
         label.textContent = `${data.name} — Focused ${formatTime(data.totalTime || 0)}`;
 
         const deleteBtn = document.createElement("button");
@@ -785,9 +790,10 @@ window.addEventListener('load', function () {
 
         deleteBtn.addEventListener("click", () => deleteSubject(docSnap.id));
         
+        
         div.appendChild(label);
         div.appendChild(deleteBtn);
-        div.appendChild(checkbox);
+        
 
         list.appendChild(div);
 

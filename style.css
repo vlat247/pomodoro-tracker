@@ -9,11 +9,7 @@ body.index-page {
     background-position: center;
     font-size: 20px;
     color:#ffffff;
-     text-shadow:
-    -2px -2px 0 black,
-     2px -2px 0 black,
-    -2px  2px 0 black,
-     2px  2px 0 black;
+  
    
 }
 
@@ -98,8 +94,10 @@ button {
   gap: 0px;
 }
 
-.solid-grid .plant-icon {
-  transform: rotate(-45deg) skewY(0deg);
+
+
+#inventoryModal .plant-icon {
+  transform: none !important;
 }
 
 .plant-icon {
@@ -343,6 +341,12 @@ button {
   font-size: 28px;
   font-weight: bold;
   cursor: pointer;
+  text-shadow:
+    -2px -1px 0 black,
+     2px -1px 0 black,
+    -2px  2px 0 black,
+     2px  2px 0 black;
+
 }
 .close:hover {
   color: #f44336;
@@ -360,6 +364,7 @@ body.modal-open {
   font-size: 28px;
   font-weight: bold;
   cursor: pointer;
+  text-shadow:#1f1000;
 }
 .close:hover {
   color: #f44336;
@@ -616,7 +621,7 @@ button .data-price {
 #choose-subject-button {
   position: fixed; 
   top: 51px;
-  left: 170px;
+  left: 10px;
   font-family: "Press Start 2P", sans-serif;
   font-size: 14px;
   color: #5dac09;
@@ -630,21 +635,17 @@ button .data-price {
 
 
 .chooseSubjectModalContent {
-   /* Hidden by default */
   position: fixed;
   z-index: 1000;
   width: 700px;
   height: auto;
   overflow: auto;
-  background-color: rgb(179, 179, 179);
+  background-color: rgb(172, 172, 209);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 40px;
-
-  
-  background-color: white;
 }
 
 
@@ -659,4 +660,54 @@ button .data-price {
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.4);
+}
+
+.subject-item {
+  display: flex;
+  align-items: center;
+  border: 6px solid rgb(72, 72, 95);
+  border-radius: 10px;
+  margin: 5px;
+  padding: 10px 15px;
+  background-color: rgb(134, 134, 173);
+  gap:20px;
+  justify-content: s;
+
+}
+
+.subject-item button {
+  margin-left:auto;
+  padding: 4px 10px;
+  font-size: 14px;
+  border: none;
+  background-color: #d14636;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.subject-item button:hover {
+  background-color: #dd2713;
+}
+
+
+
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: #86fa0a; 
+  cursor: pointer;
+  
+}
+
+#createSubject {
+  background-color: #8f77b6;
+  border-radius: 10px;
+  display:flex;
+  align-items: left;
+  margin-top: 30px;
+  font-size: 14px;
+  color: white;
+  border: none;
+
 }
