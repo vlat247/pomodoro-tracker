@@ -11,15 +11,19 @@ html, body {
   --shadow: rgba(0, 0, 0, 0.5);
   --hover-color:#e8d4b6;
   --calendar:#d2d2d2;
+  --objects-color:#f1debe;
+  --leaderboard: #fff0d7;
 }
 
 body.dark-theme {
   --bg-color: #171716;
   --text-color: #ffffff;
   --section-bg: #2a2a2a;
-  --hover-color:#2f2f2f;
+  --hover-color:#2a2b38;
   --calendar:#4d4d4d;
-  --text-color-lessbright:#a3a1a1;
+  --text-color-lessbright:#cdccdc;
+  --objects-color: #232129;
+  --leaderboard: #312d3b;
 }
 
 body.statistic-page {
@@ -60,7 +64,7 @@ body.friends-page {
 }
 
 .stats-section {
-  background-color: var(--bg-color);
+  background-color: var(--objects-color);
   padding: 20px;
   border-radius: 10px;
   text-align: left;
@@ -74,7 +78,7 @@ body.friends-page {
   display: flex;
   flex-direction: column;
   padding: 10px;
-  background: var(--bg-color);
+  background: var(--objects-color);
   border-radius: 10px;
   box-shadow: 0 0 10px var(--shadow);
 }
@@ -98,13 +102,13 @@ body.friends-page {
   justify-content: center;
   align-items: center;
   border: none;
-  background: var(--bg-color);
+  background: var(--objects-color);
   cursor: pointer;
   border-radius: 30%;
   width: 40px;
   height:40px;
   box-shadow: 0 0 4px var(--shadow);
-  color: var(--text-color)
+  color: var(--text-color);
 }
 
 .days{
@@ -163,12 +167,12 @@ body.friends-page {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--bg-color);
+    background-color: var(--objects-color);
     color:var(--text-color);
   }
 
 .modal-content {
-    background-color: var(--bg-color);
+    background-color: var(--objects-color);
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
@@ -232,7 +236,7 @@ body.friends-page {
 }
 
 .leaderboard {
-  background-color: var(--bg-color);
+  background-color: var(--objects-color);
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -253,8 +257,8 @@ table {
 .leaderboard-entry {
   padding: 15px;
   margin: 5px 0;
-  background-color:var(--bg-color);
-  border: 5px solid #000000;
+  background-color:var(--leaderboard);
+  border: 2px solid #000000;
   border-radius: 10px;
   color:var(--text-color-lessbright);
 }
@@ -461,7 +465,7 @@ a {
 .githubParody {
   max-width: 800px;
   padding: 10px;
-  background-color:var(--bg-color);
+  background-color:var(--objects-color);
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.6);
   font-family: "Press Start 2P", sans-serif;
@@ -484,8 +488,8 @@ a {
   height: 12px;
   background-color:var(--hover-color);
   border-radius: 2px;
-  margin: 1px;
-  padding: 0.1px;
+  margin: 5px;
+  padding: 0px;
 }
 
 .grid-box.level-1 { background-color: #9be9a8; }
@@ -496,7 +500,7 @@ a {
 /*Big leaderboard main one*/
 #bigLeaderboardContainer {
   padding: 20px;
-  background: var(--bg-color);
+  background: var(--objects-color);
   border: 2px solid #000000;
   border-radius: 10px;
   max-width: 600px;
@@ -508,7 +512,7 @@ a {
 #bigLeaderboardContainer .leaderboard-entry {
   padding: 6px 10px;
   margin: 5px 0;
-  background-color: var(--bg-color);
+  background-color: var(--hover-color);
   border-radius: 8px;
   display: flex;
   gap: 10px;
@@ -576,7 +580,7 @@ a {
   position: absolute;
   top:300px;
   left: 265px;
-  background-color: var(--hover-color);
+  background-color: var(--objects-color);
   color:var(--text-color);
   font-family: "Press Start 2P", sans-serif;
   text-align: left;
@@ -591,7 +595,7 @@ a {
 }
 
 #friendRequestsContainer {
-  background:var(--hover-color);
+  background:var(--objects-color);
   width: 100vw;
   height: 100px;
   margin: 5px;
@@ -601,7 +605,7 @@ a {
 }
 
 .friend-request {
-  background-color: var(--hover-color);
+  background-color: var(--objects-color);
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 15px 20px;
@@ -655,7 +659,7 @@ a {
 #friendRequestsContainer {
   margin-top: 30px;
   padding: 15px 20px;
-  background-color:var(--hover-color);
+  background-color:var(--objects-color);
   border-radius: 12px;
   width: 100%;
   text-align: left;
@@ -672,7 +676,7 @@ a {
 #friendsList {
   margin-top: 20px;
   padding: 15px 20px;
-  background-color: var(--hover-color);
+  background-color: var(--objects-color);
   border-radius: 12px;
   max-width: 100%;
   text-align: left;
@@ -740,6 +744,6 @@ label{
   border-radius: 4px;
   height:auto;
   padding:5px 10px;
-  background-color: var(--hover-color);
+  background-color: var(--section-bg);
 
 }
