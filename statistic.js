@@ -293,3 +293,27 @@ document.getElementById("themeToggle").addEventListener("click", () => {
   const isDark = document.body.classList.contains("dark-theme");
   localStorage.setItem("theme", isDark ? "dark" : "light");
 });
+
+async function loadSubjectChartData() {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  const subjectsRef = collection(db, "users", user.uid, "subjects");
+  const snapshot = await getDocs(subjectsRef);
+
+  const labels = [];
+  const data = [];
+
+  snapshot.forEach(doc => {
+    const subject = doc.data();
+    labels.push(subject.name);
+    data.push(Math.floor((subject.totalTime || 0) / 60)); // convert seconds to minutes
+  });
+
+  drawSubjectTimeChart(labels, data);
+}
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    loadSubjectChartData(); 
+  }
+});

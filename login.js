@@ -563,6 +563,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const itemCost = parseInt(this.getAttribute('data-price'));
         const itemType = this.getAttribute('data-plant-type'); // or data-plant-type if you renamed it
 
+        if (playerMoney< itemCost) {
+          alert("Not enough cash((");
+          return;
+        }
+
         try {
       const user = auth.currentUser;
       if (!user) {

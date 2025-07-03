@@ -5,13 +5,13 @@ html, body {
 }
 
 :root {
-  --bg-color: #f6edde;
+  --bg-color: #fef4e2;
   --text-color: #000000;
   --section-bg: #ffffff;
   --shadow: rgba(0, 0, 0, 0.5);
-  --hover-color:#e8d4b6;
+  --hover-color:#f1dfc4;
   --calendar:#d2d2d2;
-  --objects-color:#f1debe;
+  --objects-color:#fcf7ee;
   --leaderboard: #fff0d7;
 }
 
@@ -209,12 +209,12 @@ body.friends-page {
   right: 20px;
 
   font-family: "Press Start 2P", sans-serif;
-  font-size: 14px;
+  font-size: 12px;
   color: var(--text-color);
   text-decoration: none;
   padding: 8px 12px;
-  background-color: var(--bg-color);
-  border: 2px solid #184e3d9c;
+  background-color: var(--objects-color);
+  border: none;
   border-radius: 4px;
   z-index: 1000;
 }
@@ -231,7 +231,7 @@ body.friends-page {
 
 
 .getMotivation:hover {
-  background-color: rgba(10, 21, 83, 0.7);
+  background-color: rgba(90, 95, 130, 0.793);
   color: #ffffff;
 }
 
@@ -448,6 +448,8 @@ a {
   padding: 20px;
   box-sizing: border-box;
   width: calc(100% - 270px);
+  padding:20px;
+  flex: 1;
 }
 
 
@@ -745,5 +747,18 @@ label{
   height:auto;
   padding:5px 10px;
   background-color: var(--section-bg);
+
+}
+
+.data-canvas {
+  padding: 10px;
+  background: var(--objects-color);
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+  width: 400px;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
 
 }

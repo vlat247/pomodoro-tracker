@@ -7,7 +7,17 @@
   <title>Document</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel ="stylesheet" href="statistic.css" />
-  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+  .page-wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    
+  </style>
+
 </head>
 <body class="statistic-page">
   <script>
@@ -16,6 +26,7 @@
     }
   </script>
 
+<div class="page-wrapper">
   <div class="main-content">
       <h2>Keep track of your focused time!</h2>
         <div class="dashboard-container">
@@ -57,8 +68,13 @@
           <div class="gridGit"></div>
         </div>
       </div>
+      <div class="data-canvas">
+        <canvas id="subjectTimeChart" ></canvas>
+      </div>
   </div>
-    
+</div>
+  
+
     
   <div class="statistic-container">
       <a href="leaderboard1.html" id="leaderboardButton">Leaderboard</a>
@@ -83,8 +99,41 @@
       </div>
     </div>
   </div>
+
   
-    
+
+  <script>
+  function drawSubjectTimeChart(labels, data) {
+  const ctx = document.getElementById("subjectTimeChart").getContext("2d");
+
+  new Chart(ctx, {
+    type: 'bar', 
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Focus Time (min)',
+        data: data,
+        backgroundColor: '#BFFF00',
+        borderColor: '##BFFF00',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Minutes'
+          }
+        }
+      }
+    }
+  });
+}
+
+  </script>  
     <script type="module" src="login.js"></script>
     <script type ="module" src="statistic.js"></script>
 </body>
