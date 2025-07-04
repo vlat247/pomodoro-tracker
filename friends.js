@@ -20,7 +20,10 @@
     Timestamp,
     deleteDoc,
     query,
-    where
+    where,
+    orderBy,
+    onSnapshot,
+    serverTimestamp
   } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
   
   // Firebase Config
@@ -293,25 +296,9 @@ async function loadFriendsUI(userId) {
   }
 }
 
-function openChatWith(friendId, friendName) {
-      const modal = document.getElementById("chatModal");
-      
 
-    if (!modal) {
-      console.error("❌ chatModal not found in DOM. Make sure <div id='chatModal'> exists.");
-      return;
-    }
-      // Optionally: set chat header or state
-      const chatHeader = document.getElementById("chatHeader"); // e.g., <h3 id="chatHeader"></h3>
-      if (chatHeader) chatHeader.textContent = `Chat with ${friendName}`;
 
-      // TODO: Load previous messages here if needed
-
-      modal.style.display = 'block';
-      document.body.style.overflow = 'hidden';
-  }
-
-//messagener modal
+//CHAT MODAL
  function openModalMessage() {
   const modal = document.getElementById("chatModal");
   const closeBtn = document.querySelector('#chatModal .close');
@@ -351,3 +338,74 @@ function openChatWith(friendId, friendName) {
 document.addEventListener("DOMContentLoaded", () => {
   openModalMessage();
 });
+
+//SEND MESSAGES LOGIC 
+
+let currentUserId = null;
+let currentChatUserId = null;
+
+// Get current user UID
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    currentUserId = user.uid;
+    console.log("✅ Logged in as:", currentUserId);
+  }
+});
+
+// Generate a unique chat ID between two users
+function getChatId(uid1, uid2) {
+  return [uid1, uid2].sort().join("_");
+}
+
+// Send message
+async function sendMessage(fromUserId, toUserId, messageText) {
+  const chatId = getChatId(fromUserId, toUserId);
+  const chatRef = collection(db, "chats", chatId, "messages");
+
+  await addDoc(chatRef, {
+    sender: fromUserId,
+    text: messageText,
+    timestamp: serverTimestamp(),
+  });
+}
+
+function listenForMessages(user1, user2) {
+  const chatId = getChatId(user1, user2);
+  const messagesRef = collection(db, "chats", chatId, "messages");
+  const q = query(messagesRef, orderBy("timestamp"));
+
+  onSnapshot(q, (snapshot) => {
+    const container = document.getElementById("messagesContainer");
+    container.innerHTML = "";
+
+    snapshot.forEach((doc) => {
+      const msg = doc.data();
+      const div = document.createElement("div");
+      div.textContent = `${msg.sender === user1 ? "You" : "Friend"}: ${msg.text}`;
+      container.appendChild(div);
+    });
+  });
+}
+
+
+document.getElementById("sendMessage").addEventListener("click", async () => {
+  const textInput = document.getElementById("textInput");
+  const message = textInput.value.trim();
+
+  if (message !== "" && currentUserId && currentChatUserId) {
+    await sendMessage(currentUserId, currentChatUserId, message);
+    textInput.value = "";
+  }
+});
+
+
+function openChatWith(friendId, friendName) {
+  currentChatUserId = friendId;
+
+  // Show modal
+  document.getElementById("chatModal").style.display = "block";
+  document.getElementById("chatHeader").textContent = `Chat with ${friendName}`;
+
+  // Start listening for messages
+  listenForMessages(currentUserId, currentChatUserId);
+}
