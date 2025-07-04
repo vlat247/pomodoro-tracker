@@ -178,8 +178,8 @@ async function loadFriendRequestsUI(userId) {
     const div = document.createElement("div");
     div.innerHTML = `
       <p>From: ${data.from}</p>
-      <button onclick="handleRespond('${docSnap.id}', '${data.from}', '${data.to}', true)">Accept</button>
-      <button onclick="handleRespond('${docSnap.id}', '${data.from}', '${data.to}', false)">Reject</button>
+      <button class="accept-btn" onclick="handleRespond('${docSnap.id}', '${data.from}', '${data.to}', true)">Accept</button>
+      <button class="reject-btn" onclick="handleRespond('${docSnap.id}', '${data.from}', '${data.to}', false)">Reject</button>
     `;
     container.appendChild(div);
   });
@@ -348,7 +348,6 @@ let currentChatUserId = null;
 onAuthStateChanged(auth, (user) => {
   if (user) {
     currentUserId = user.uid;
-    console.log("✅ Logged in as:", currentUserId);
   }
 });
 
@@ -383,6 +382,13 @@ function listenForMessages(user1, user2) {
       const div = document.createElement("div");
       div.textContent = `${msg.sender === user1 ? "You" : "Friend"}: ${msg.text}`;
       container.appendChild(div);
+
+      if(msg.sender === user1) {
+        div.classList.add("from-me");
+      } else {
+        div.classList.add("from-them")
+      }
+
     });
   });
 }

@@ -37,6 +37,15 @@ const nextBtn = document.getElementById("nextBtn");
 let currentDate = new Date();
 let focusData = {};
 
+
+
+onAuthStateChanged(auth, (user) => {
+  if (!user) {
+    document.getElementById("loginModal").style.display = "block";
+  }
+});
+
+
 function getLevelClass(minutes) {
   if (minutes >= 180) return "level-4";
   if (minutes >= 120) return "level-3";

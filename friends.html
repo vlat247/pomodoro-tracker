@@ -21,6 +21,15 @@
       <a href="statistic.html" id="statistics">Home statistic</a>
       <button id="themeToggle">Switch theme</button>
   </div>
+
+
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="document.getElementById('loginModal').style.display='none'">&times;</span>
+    <p>You need to log in to use this feature.</p>
+    <a href="login.html">Go to Login</a>
+  </div>
+</div>
   <!--All that stuff for friends including modal and other functions-->
 <div class="main-friends-content">
     <div id="friendsList"></div>
@@ -32,15 +41,15 @@
       <div id="chatModalContent">
         <span class="close">&times;</span>
         <h3 id="chatHeader">Chat</h3>
-        
+
         <div id="messagesContainer"></div>
         <div id="bottomModal">
-          <button id="sendMessage">Send</button>
           <input id="textInput" placeholder="Type your message..." />
+          <button id="sendMessage">Send</button>
         </div>
       </div>
     </div>
-    <button id="openModal">Add Friend</button>
+    
   
 
   <div id="addFriendModal" class="modal">
@@ -53,7 +62,10 @@
   </div>
   <button id="roflButton">Get 1,000 coins</button>
 
-  <div id="friendRequestsContainer"></div>
+  <div id="friendRequestsContainer">
+    
+  </div>
+  <button id="openModal">Add Friend</button>
 </div>
 
   <script type="module" src="friends.js"></script>

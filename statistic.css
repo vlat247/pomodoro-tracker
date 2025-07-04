@@ -13,6 +13,8 @@ html, body {
   --calendar:#d2d2d2;
   --objects-color:#fcf7ee;
   --leaderboard: #fff0d7;
+  --chat-bg:#fee9c2; 
+  --chat-bg-2:#fbc1dd; 
 }
 
 body.dark-theme {
@@ -21,9 +23,11 @@ body.dark-theme {
   --section-bg: #2a2a2a;
   --hover-color:#2a2b38;
   --calendar:#4d4d4d;
-  --text-color-lessbright:#cdccdc;
+  --text-color-lessbright:#b6b5c5;
   --objects-color: #232129;
   --leaderboard: #312d3b;
+  --chat-bg: #171716;
+  --chat-bg-2: #7b8196;
 }
 
 body.statistic-page {
@@ -580,8 +584,8 @@ a {
   font-size: 16px;
   margin-left: 10px;
   position: absolute;
-  top:300px;
-  left: 265px;
+  top:210px;
+  right:20px;
   background-color: var(--objects-color);
   color:var(--text-color);
   font-family: "Press Start 2P", sans-serif;
@@ -632,12 +636,13 @@ a {
   background-color: #4CAF50;
   color: white;
   padding: 8px 16px;
-  margin-right: 10px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.2s ease;
+  font-family: "Press Start 2P";
+  font-size: 10px;
 }
 
 .accept-btn:hover {
@@ -654,6 +659,8 @@ a {
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.2s ease;
+  font-family: "Press Start 2P";
+  font-size: 10px;
 }
 
 .reject-btn:hover {
@@ -838,4 +845,70 @@ label{
   display: flex;
   gap: 10px;
   align-items: center;
+}
+
+#sendMessage {
+  font-family: "Press Start 2P";
+  padding: 11px;
+  position:relative;
+  width: auto;
+
+  
+}
+
+#textInput {
+  outline: none;
+  padding:12px;
+  width:300px;
+  border:none;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: #e2e2e2;
+  border-radius: 5px;
+  font-family: "Press Start 2P";
+}
+
+.from-me {
+  background-color: var(--chat-bg);
+  align-self: flex-start;
+  text-align: left;
+  border-radius: 5px;
+  border: none;
+  margin:5px;
+  padding: 5px;
+  color: var(--text-color-lessbright);
+  box-shadow: 0 0 3px rgba(0,0,0,0.6);
+}
+
+/* Messages from friend */
+.from-them {
+  background-color: var(--chat-bg-2);
+  align-self: flex-start;
+  text-align: left;
+  margin: 5px;
+  padding: 5px;
+  border-radius:5px;
+  color: #000;
+  box-shadow: 0 0 3px rgba(0,0,0,0.6);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background: var(--objects-color);
+  padding: 50px;
+  margin: 15% auto;
+  width: 300px;
+  border-radius: 8px;
+  text-align: center;
+  color: var(--text-color);
 }
