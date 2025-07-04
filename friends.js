@@ -182,28 +182,6 @@ async function loadFriendRequestsUI(userId) {
   });
 }
 
-
-async function loadFriendsUI(userId) {
-  const container = document.getElementById("friendsList");
-  container.innerHTML = "<h3>Your Friends:</h3>";
-
-  const snapshot = await getDocs(collection(db, "users", userId, "friends"));
-  if (snapshot.empty) {
-    container.innerHTML += "<p>No friends yet.</p>";
-    return;
-  }
-
-  for (const docSnap of snapshot.docs) {
-    const friendId = docSnap.data().friendId;
-    const friendDoc = await getDoc(doc(db, "users", friendId));
-    const friendName = friendDoc.exists() ? friendDoc.data().name : "Unknown";
-
-    const div = document.createElement("div");
-    div.textContent = `${friendName}`;
-    container.appendChild(div);
-  }
-}
-
 //Modal add friends
 document.addEventListener("DOMContentLoaded", function() {
   const modal = document.getElementById("addFriendModal");
@@ -272,4 +250,104 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem("theme", isDark ? "dark" : "light");
     });
   }
+});
+
+
+
+document.addEventListener("DOMContentLoaded", ()=> {
+  openModalMessage();
+});
+
+async function loadFriendsUI(userId) {
+  const container = document.getElementById("friendsList");
+  container.innerHTML = "<h3>Your Friends:</h3>";
+
+  const snapshot = await getDocs(collection(db, "users", userId, "friends"));
+  if (snapshot.empty) {
+    container.innerHTML += "<p>No friends yet.</p>";
+    return;
+  }
+
+  for (const docSnap of snapshot.docs) {
+    const friendId = docSnap.data().friendId;
+    const friendDoc = await getDoc(doc(db, "users", friendId));
+    const friendName = friendDoc.exists() ? friendDoc.data().name : "Unknown";
+
+    const messageBtn = document.createElement("button");
+    messageBtn.textContent = "Message";
+    messageBtn.classList.add("openChatBtn");
+    messageBtn.setAttribute('data-uid', friendId);
+
+    
+    messageBtn.addEventListener('click', () => {
+      openChatWith(friendId, friendName);
+    });
+
+    const div = document.createElement("div");
+    div.textContent = `${friendName}`;
+    div.appendChild(messageBtn)
+
+    container.appendChild(div);
+
+
+  }
+}
+
+function openChatWith(friendId, friendName) {
+      const modal = document.getElementById("chatModal");
+      
+
+    if (!modal) {
+      console.error("❌ chatModal not found in DOM. Make sure <div id='chatModal'> exists.");
+      return;
+    }
+      // Optionally: set chat header or state
+      const chatHeader = document.getElementById("chatHeader"); // e.g., <h3 id="chatHeader"></h3>
+      if (chatHeader) chatHeader.textContent = `Chat with ${friendName}`;
+
+      // TODO: Load previous messages here if needed
+
+      modal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+  }
+
+//messagener modal
+ function openModalMessage() {
+  const modal = document.getElementById("chatModal");
+  const closeBtn = document.querySelector('#chatModal .close');
+  const modalTriggers = document.querySelectorAll('[messenger-open-modal]');
+
+  function openModal() {
+    modal.style.display = 'block'
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  if (modalTriggers) {
+    modalTriggers.forEach(trigger => {
+      trigger.addEventListener('click', openModal);
+    });
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeModal);
+  }
+
+  window.addEventListener('click', function(event) {
+    if (event.target === modal) {
+      closeModal();
+    }
+  });
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && modal.style.display === 'block') {
+      closeModal();
+    }
+  });
+ }
+document.addEventListener("DOMContentLoaded", () => {
+  openModalMessage();
 });

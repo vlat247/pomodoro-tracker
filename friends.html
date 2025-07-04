@@ -22,9 +22,24 @@
       <button id="themeToggle">Switch theme</button>
   </div>
   <!--All that stuff for friends including modal and other functions-->
-  <div class="main-friends-content">
-  <div id="friendsList"></div>
-  <button id="openModal">Add Friend</button>
+<div class="main-friends-content">
+    <div id="friendsList"></div>
+
+    
+    <div id="chatModal" class="modal">
+      <span class="close">&times;</span>
+
+      <div id="chatModalContent">
+        <h3 id="chatHeader">Chat</h3>
+        <div id="MessagesContainer"></div>
+        <div id="bottomModal">
+          <button id="sendMessage">Send</button>
+          <input id="textInput" placeholder="Type your message..." />
+        </div>
+      </div>
+    </div>
+    <button id="openModal">Add Friend</button>
+  
 
   <div id="addFriendModal" class="modal">
     <div class="modalContent">

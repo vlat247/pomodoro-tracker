@@ -588,6 +588,7 @@ a {
   text-align: left;
   padding-left: 10px 15px;
   padding-left: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.6);
 
 }
 #openModal:hover {
@@ -667,6 +668,7 @@ a {
   text-align: left;
   box-sizing: border-box;
   color: var(--text-color);
+  box-shadow: 0 0 10px rgba(0,0,0,0.6);
 }
 
 #friendRequestsContainer h3 {
@@ -674,6 +676,7 @@ a {
   margin-bottom: 15px;
   color:  var(--text-color);
   text-align: left;
+  
 }
 #friendsList {
   margin-top: 20px;
@@ -684,6 +687,7 @@ a {
   text-align: left;
   box-sizing: border-box;
   margin-left: 5px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
 }
 
 #friendsList h3 {
@@ -700,6 +704,9 @@ a {
   margin-bottom: 10px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   color:var(--text-color);
+  display: flex;
+  justify-content: space-between;
+  align-items:center;
 }
 
 #roflButton {
@@ -747,6 +754,7 @@ label{
   height:auto;
   padding:5px 10px;
   background-color: var(--section-bg);
+  box-shadow: 0 0 10px rgba(0,0,0,0.6);
 
 }
 
@@ -761,4 +769,25 @@ label{
   margin-top: 20px;
   border-radius: 10px;
 
+}
+
+/*DESIGN FOR MESSenger*/
+
+.friend-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.openChatBtn {
+  background-color: var(--objects-color);
+  color: var(--text-color);
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: auto;
+  font-family: "Press Start 2P";
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
