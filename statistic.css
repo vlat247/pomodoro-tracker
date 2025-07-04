@@ -791,3 +791,51 @@ label{
   font-family: "Press Start 2P";
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
+
+.modal1 {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    padding: 10px; 
+}
+
+#chatModalContent {
+  position: fixed;
+  z-index: 1000;
+  width: 50%;
+  max-width: 400px;
+  max-height: 100% ;
+  background-color: var(--bg-color);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  overflow-y: hidden;
+  padding: 40px;
+  color: var(--text-color)
+}
+
+#messagesContainer {
+  display: flex;
+  flex-direction: column; /* Stack messages vertically */
+  width: auto;
+  padding: 20px;
+  background-color: var(--objects-color);
+  height: 300px;
+  overflow-y: auto; /* ✅ Scroll if too many messages */
+  border: 1px solid var(--bg-color);
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+#bottomModal {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
