@@ -47,7 +47,14 @@ onAuthStateChanged(auth, user => {
     const userId = user.uid;
     console.log("🔐 Logged in as:", userId);
 
-    setupFriendUI(userId);
+    // Wait until the modal and all DOM elements are loaded
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", () => {
+        setupFriendUI(userId);
+      });
+    } else {
+      setupFriendUI(userId); // DOM already ready
+    }
   } else {
     console.log("❌ Not logged in.");
   }
@@ -158,9 +165,31 @@ function setupFriendUI(currentUserId) {
   loadFriendsUI(currentUserId);
 }
 
+
+
 async function loadFriendRequestsUI(userId) {
   const container = document.getElementById("friendRequestsContainer");
-  container.innerHTML = "<h3>Incoming Friend Requests:</h3>";
+  container.innerHTML = ""; // Clear everything first
+
+  const title = document.createElement("h3");
+  title.textContent = "Incoming Friend Requests:";
+  container.appendChild(title);
+
+  const addBtn = document.createElement("button");
+  addBtn.id = "openModal";
+  addBtn.textContent = "Add Friend";
+
+  addBtn.addEventListener("click", () => {
+    const modal = document.getElementById("addFriendModal");
+    if (modal) {
+      modal.style.display = "flex";
+      document.body.style.overflow = "hidden";
+    } else {
+      console.error("Modal with ID 'addFriendModal' not found!");
+    }
+  });
+
+  container.appendChild(addBtn);
 
   const q = query(collection(db, "friend_requests"),
     where("to", "==", userId),
@@ -168,8 +197,11 @@ async function loadFriendRequestsUI(userId) {
   );
 
   const snapshot = await getDocs(q);
+
   if (snapshot.empty) {
-    container.innerHTML += "<p>No pending requests</p>";
+    const emptyText = document.createElement("p");
+    emptyText.textContent = "No pending requests";
+    container.appendChild(emptyText); // ✅ Use DOM method instead of innerHTML
     return;
   }
 
@@ -178,12 +210,13 @@ async function loadFriendRequestsUI(userId) {
     const div = document.createElement("div");
     div.innerHTML = `
       <p>From: ${data.from}</p>
-      <button class="accept-btn" onclick="handleRespond('${docSnap.id}', '${data.from}', '${data.to}', true)">Accept</button>
-      <button class="reject-btn" onclick="handleRespond('${docSnap.id}', '${data.from}', '${data.to}', false)">Reject</button>
+      <button class="accept-btn" onclick="handleRespond('${docSnap.id}', '${data.from}', '${data.to}', true')">Accept</button>
+      <button class="reject-btn" onclick="handleRespond('${docSnap.id}', '${data.from}', '${data.to}', false')">Reject</button>
     `;
     container.appendChild(div);
   });
 }
+
 
 //Modal add friends
 document.addEventListener("DOMContentLoaded", function() {
@@ -222,9 +255,6 @@ document.addEventListener("DOMContentLoaded", function() {
       closeModal();
     }
   });
-});
-document.getElementById("openModal").addEventListener("click", () => {
-  document.getElementById("addFriendModal").style.display = "flex";
 });
 
 window.handleRespond = async function(requestId, fromUserId, toUserId, accept) {
