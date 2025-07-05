@@ -612,7 +612,7 @@ a {
   position: absolute;
   top:25px;
   right:10px;
-  z-index: 2000;
+  z-index: 1;
   margin-right: 20px;
 
 }
@@ -748,8 +748,8 @@ a {
   font-size: 16px;
   margin-left: 10px;
   position: absolute;
-  top:500px;
-  left: 565px;
+  bottom: 20px;
+  right: 20px;
   background-color: var(--bg-color);
   color:var(--text-color);
   font-family: "Press Start 2P", sans-serif;
@@ -866,7 +866,7 @@ label{
 
 #bottomModal {
   display: flex;
-  gap: 10px;
+  gap: 1px;
   align-items: center;
 }
 
@@ -875,22 +875,24 @@ label{
   padding: 11px;
   position:relative;
   width: auto;
-
-  
+  margin-top: 10px;
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
 }
 
 #textInput {
   outline: none;
   padding:12px;
-  width:300px;
-  border:none;
+  width:240px;
+  border: 1px solid #8e8e8e;
   -webkit-appearance: none;
   -ms-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background: #e2e2e2;
+  background: #f5f5f5;
   border-radius: 5px;
   font-family: "Press Start 2P";
+  margin-top:10px;
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
 }
 
 .from-me {
@@ -934,4 +936,40 @@ label{
   border-radius: 8px;
   text-align: center;
   color: var(--text-color);
+  
+}
+
+#stickerBtn {
+  width:auto;
+  font-family: "Press Start 2P";
+  padding: 9px;
+  position:relative;
+  margin-top: 10px;
+  box-shadow: 0 0 3px rgba(0,0,0,0.4);
+}
+
+
+
+#sticker-panel {
+  position: absolute;
+  bottom: 60px;
+  left: 10px;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  z-index: 9999;
+  display: none;
+  object-fit: cover;
+  border-radius: 4px;
+
+}
+
+.sticker {
+  height:50px;
+  width:50px;
+}
+
+#messagesContainer .chat-sticker {
+  height: 90px;
+  width: 90px;
 }

@@ -267,11 +267,6 @@ window.handleRespond = async function(requestId, fromUserId, toUserId, accept) {
   }
 };
 
-document.getElementById("roflButton").addEventListener("click", function() {
-  alert("AHAHHA maaan what did you hope for?")
-  this.style.display = "none"; 
-})
-
 
 document.addEventListener("DOMContentLoaded", () => {
   const themeToggleBtn = document.getElementById("themeToggle");
@@ -374,26 +369,26 @@ document.addEventListener("DOMContentLoaded", () => {
 let currentUserId = null;
 let currentChatUserId = null;
 
-// Get current user UID
+
 onAuthStateChanged(auth, (user) => {
   if (user) {
     currentUserId = user.uid;
   }
 });
 
-// Generate a unique chat ID between two users
 function getChatId(uid1, uid2) {
   return [uid1, uid2].sort().join("_");
 }
 
-// Send message
-async function sendMessage(fromUserId, toUserId, messageText) {
+
+async function sendMessage(fromUserId, toUserId, messageText, stickerUrl) {
   const chatId = getChatId(fromUserId, toUserId);
   const chatRef = collection(db, "chats", chatId, "messages");
 
   await addDoc(chatRef, {
     sender: fromUserId,
     text: messageText,
+    sticker: stickerUrl || null,
     timestamp: serverTimestamp(),
   });
 }
@@ -410,7 +405,16 @@ function listenForMessages(user1, user2) {
     snapshot.forEach((doc) => {
       const msg = doc.data();
       const div = document.createElement("div");
-      div.textContent = `${msg.sender === user1 ? "You" : "Friend"}: ${msg.text}`;
+
+      if(msg.sticker) {
+        const img = document.createElement('img');
+        img.src = msg.sticker;
+        img.alt = "Sticker";
+        img.classList.add("chat-sticker");
+        div.appendChild(img);
+      } else {
+        div.textContent = `${msg.sender === user1 ? "You" : "Friend"}: ${msg.text}`;
+      }
       container.appendChild(div);
 
       if(msg.sender === user1) {
@@ -438,10 +442,65 @@ document.getElementById("sendMessage").addEventListener("click", async () => {
 function openChatWith(friendId, friendName) {
   currentChatUserId = friendId;
 
-  // Show modal
   document.getElementById("chatModal").style.display = "block";
   document.getElementById("chatHeader").textContent = `Chat with ${friendName}`;
 
-  // Start listening for messages
+  
   listenForMessages(currentUserId, currentChatUserId);
 }
+
+//ROFL BUTTON(TAKE CARE LATER)
+document.getElementById("roflButton").addEventListener("click", function() {
+  alert("AHAHHA maaan what did you hope for?")
+  this.style.display = "none"; 
+})
+
+//EMOJI BAR INSIDE MY CHAT
+
+document.querySelectorAll('.sticker').forEach(sticker => {
+  sticker.addEventListener('click', async () => {
+    const stickerUrl = sticker.getAttribute('src');
+    if (currentUserId && currentChatUserId) {
+      await sendMessage(currentUserId, currentChatUserId, "", stickerUrl);
+    }
+  });
+});
+
+//modal for emoji bar
+document.addEventListener("DOMContentLoaded", () => {
+  const modalEmoji = document.getElementById("sticker-panel");
+  const closeBtn = document.querySelector("#sticker-panel .close")
+  const modalEmojiTriggers = document.querySelectorAll("[data-open-emoji]");
+
+  function openModal() {
+    modalEmoji.style.display = 'block'
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modalEmoji.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  if (modalEmojiTriggers) {
+    modalEmojiTriggers.forEach(trigger => {
+      trigger.addEventListener('click', openModal);
+    });
+  }
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeModal);
+  }
+
+  window.addEventListener('click', function(event) {
+    if (event.target === modalEmoji) {
+      closeModal();
+    }
+  });
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && modalEmoji.style.display === 'block') {
+      closeModal();
+    }
+  });
+ }
+)
