@@ -968,7 +968,7 @@ label{
   left: 10px;
   background: white;
   border: 1px solid #ccc;
-  padding: 10px;
+  padding: 35px;
   z-index: 9999;
   display: none;
   object-fit: cover;
@@ -976,9 +976,18 @@ label{
 
 }
 
+#close-emoji {
+  transform: scale(0.9);
+  top:2px;
+  right:2px;
+}
+
 .sticker {
   height:50px;
   width:50px;
+  border: 1px solid #000;
+  border-radius: 3px;
+
 }
 
 #messagesContainer .chat-sticker {

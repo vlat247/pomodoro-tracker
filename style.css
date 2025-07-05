@@ -76,7 +76,7 @@ button {
   justify-content: center;
   align-items: center;
   overflow: visible;
-  background-image: url(./graphics/soil5.png);
+  background-image: url(graphics/soil5.png);
   background-size: cover;
   border: none;
 }
@@ -714,4 +714,19 @@ input[type="checkbox"] {
   color: white;
   border: none;
 
+}
+
+@media (max-width: 1000px) {
+  .button,
+  .logout-btn,
+  .username-display,
+  .button-wrapper {
+    display:none;
+  }
+}
+
+@media (max-height: 600px) {
+  .tile {
+    display:none;
+  }
 }
