@@ -5,7 +5,9 @@ import {
   doc,
   query,
   orderBy,
-  limit
+  limit,
+  where,
+  Timestamp
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
 import {
@@ -324,5 +326,63 @@ async function loadSubjectChartData() {
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     loadSubjectChartData(); 
+  }
+});
+
+//charjs
+
+function getStartAndEndOfWeek() {
+  const now = new Date();
+  const day = now.getDay(); 
+  const diffToMonday = (day === 0 ? -6 : 1) - day; 
+  const monday = new Date(now);
+  monday.setDate(now.getDate() + diffToMonday);
+  monday.setHours(0, 0, 0, 0);
+
+  const sunday = new Date(monday);
+  sunday.setDate(monday.getDate() + 6);
+  sunday.setHours(23, 59, 59, 999);
+
+  return { monday, sunday };
+}
+
+
+async function fetchWeeklyFocusData(userId) {
+  const { monday, sunday } = getStartAndEndOfWeek();
+
+  const sessionsRef = collection(db, "users", userId, "focusSessions");
+  const q = query(
+    sessionsRef,
+    where("timestamp", ">=", Timestamp.fromDate(monday)),
+    where("timestamp", "<=", Timestamp.fromDate(sunday))
+  );
+
+  const snapshot = await getDocs(q);
+  const focusByDay = {
+    Mon: 0, Tue: 0, Wed: 0, Thu: 0, Fri: 0, Sat: 0, Sun: 0
+  };
+
+  snapshot.forEach(doc => {
+    const data = doc.data();
+    const date = data.timestamp.toDate();
+    const day = date.toLocaleDateString('en-US', { weekday: 'short' }); // e.g., "Mon"
+    if (focusByDay[day] !== undefined) {
+      focusByDay[day] += data.duration || 0; // Add duration in minutes
+    }
+  });
+
+  const labels = Object.keys(focusByDay); // ['Mon', 'Tue', ..., 'Sun']
+  const data = Object.values(focusByDay); // [30, 40, ...]
+
+  return { labels, data };
+}
+
+
+
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    const userId = user.uid;
+    const { labels, data } = await fetchWeeklyFocusData(userId);
+    drawTimeChart(labels, data);
   }
 });

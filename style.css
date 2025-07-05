@@ -76,8 +76,7 @@ button {
   justify-content: center;
   align-items: center;
   overflow: visible;
-
-  background-image: url(/graphics/soil5.png);
+  background-image: url(./graphics/soil5.png);
   background-size: cover;
   border: none;
 }

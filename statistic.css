@@ -801,6 +801,18 @@ label{
 
 }
 
+.data-canvas2 {
+  padding: 10px;
+  background: var(--objects-color);
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+  width: 400px;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+
+}
 /*DESIGN FOR MESSenger*/
 
 .friend-item {

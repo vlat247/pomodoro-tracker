@@ -13,9 +13,7 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
-    }
-
-    
+    }  
   </style>
 
 </head>
@@ -78,7 +76,12 @@
       </div>
       <div class="data-canvas">
         <canvas id="subjectTimeChart" ></canvas>
+        
       </div>
+      <div class="data-canvas2">
+        <canvas id="timeChartOverall"></canvas>
+      </div>
+      
   </div>
 </div>
   
@@ -111,38 +114,87 @@
   
 
   <script>
-  function drawSubjectTimeChart(labels, data) {
-  const ctx = document.getElementById("subjectTimeChart").getContext("2d");
+    function drawSubjectTimeChart(labels, data) {
+    const ctx = document.getElementById("subjectTimeChart").getContext("2d");
 
-  new Chart(ctx, {
-    type: 'bar', 
-    data: {
-      labels: labels,
-      datasets: [{
-        label: 'Focus Time (min)',
-        data: data,
-        backgroundColor: '#BFFF00',
-        borderColor: '##BFFF00',
-        borderWidth: 2
-      }]
-    },
-    options: {
-      responsive: true,
-      scales: {
-        y: {
-          beginAtZero: true,
-          title: {
-            display: true,
-            text: 'Minutes'
+    new Chart(ctx, {
+      type: 'bar', 
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Focus subjects time (min)',
+          data: data,
+          backgroundColor: '#BFFF00',
+          borderColor: '##BFFF00',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Minutes'
+            }
           }
         }
       }
+    });
     }
-  });
-}
 
   </script>  
-    <script type="module" src="login.js"></script>
-    <script type ="module" src="statistic.js"></script>
+  <script>
+  function drawTimeChart(labels, data) {
+    const ctx = document.getElementById("timeChartOverall").getContext("2d");
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels, // e.g., ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        datasets: [{
+          label: 'Focus Time (min)',
+          data: data, // e.g., [30, 45, 50, 20, 0, 60, 40]
+          backgroundColor: 'rgba(191, 255, 0, 0.2)',
+          borderColor: '#BFFF00',
+          borderWidth: 2,
+          fill: true,
+          tension: 0.3 // smoother line
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: true
+          },
+          tooltip: {
+            callbacks: {
+              label: (context) => `${context.parsed.y} min`
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Minutes'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Days of the Week'
+            }
+          }
+        }
+      }
+    });
+  }
+</script>
+  <script type="module" src="login.js"></script>
+  <script type ="module" src="statistic.js"></script>
 </body>
 </html>
