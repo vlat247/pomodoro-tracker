@@ -77,9 +77,8 @@ button {
   align-items: center;
   overflow: visible;
 
-  background-image: url(/graphics/soil.png);
-  background-size: 300%;
-  background-position: 50%;
+  background-image: url(/graphics/soil5.png);
+  background-size: cover;
   border: none;
 }
 
