@@ -66,6 +66,14 @@ body.friends-page {
   background-color: var(--bg-color);
   overflow-x: hidden;
 }
+body.tasks-page {
+  font-family: "Press Start 2P", sans-serif;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: relative;
+  background-color: var(--bg-color);
+}
 
 .stats-section {
   background-color: var(--objects-color);
@@ -417,6 +425,27 @@ table {
   display: inline-block;
 }
 #shareGardenButton:hover {
+  background-color: var(--hover-color);
+  transition: 0.2s;
+}
+
+#tasks {
+  position: fixed;
+  top: 280px;
+  left: 20px;
+  font-family: "Press Start 2P", sans-serif;
+  font-size: 15px;
+  color:var(--text-color);
+  background-color: var(--bg-color);
+  padding: 12px 12px;
+  border: 2px;
+  width:210px;
+  border-radius: 6px;
+  text-align: left;
+  display: inline-block;
+}
+
+#tasks:hover {
   background-color: var(--hover-color);
   transition: 0.2s;
 }
@@ -785,6 +814,7 @@ label{
   padding:5px 10px;
   background-color: var(--section-bg);
   box-shadow: 0 0 10px rgba(0,0,0,0.6);
+  font-family: "Press Start 2P";
 
 }
 
@@ -1025,3 +1055,87 @@ label{
 .plant-icon:hover::after {
   opacity: 1;
 }
+
+/** STYLES FOR TASKS HTML**/
+.main-content-tasks {
+  margin-left: 270px;
+  height: 100vh;
+  font-family: "Press Start 2P";
+}
+#heading {
+  text-align:left;
+  padding: 10px 20px;
+  color: var(--text-color)
+}
+
+#createTaskContainer {
+  width:auto;
+  position:relative;
+  height:60px;
+  background-color: var(--objects-color);
+  box-shadow:0 0 3px rgba(0, 0, 0, 0.5);
+  display:flex;
+  gap:10px;
+  border-radius: 15px;
+  margin-left:10px;
+  margin-right:10px;
+  display:flex;/* horizontally */
+  align-items: center;   
+
+}
+#createTaskBtn {
+  padding: 0;
+  height:40px;
+  width: 40px;
+  border: none;
+  margin-left:20px;
+  font-size:25px;
+  border-radius: 50%;
+  background-color: var(--chat-bg);
+  color:var(--text-color);
+  text-align:center;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#createTaskBtn:hover {
+  background-color: var(--chat-bg-2);
+  transition: 0.4s ease;
+}
+
+#inputTaskName {
+  border:none;
+  margin:10px;
+  background: var(--objects-color);
+  font:inherit;
+  font-size:14px;
+  padding: 12px;
+  width:500px;
+  outline:none;
+  appearance: none;
+  color:var(--text-color)
+}
+.custom-field {
+  position:relative;
+  font-size:14px;
+}
+.custom-field .placeholder {
+  position: absolute;
+  left: 12px;
+  top: calc(50%);
+  transform: translateY(-50%);
+  color: #aaa;
+  transition:
+    top 0.3s ease,
+    font-size 0.3s ease,
+    color 0.3s ease;
+}
+.custom-field input:valid + .placeholder,
+.custom-field input:focus + .placeholder {
+  top: 10px;
+  font-size: 10px;
+  color: var(--objects-color);
+}
+

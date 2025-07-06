@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel ="stylesheet" href="statistic.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>Tasks</title>
+</head>
+<body class="tasks-page">
+  <script>
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark-theme");
+    }
+  </script>
+  <div class="statistic-container">
+      <a href="leaderboard1.html" id="leaderboardButton">Leaderboard</a>
+      <a href="friends.html" id="friendsButton">Friends</a>
+      <a href="shareGarden.html" id="shareGardenButton">Share Your Garden</a>
+      <a href="index.html" id="back-to-home">Back to garden</a>
+      <a href="statistic.html" id="statistics">Home statistic</a>
+      <a href="tasks.html" id="tasks">Tasks</a>
+      <button id="themeToggle">Switch theme</button>
+  </div>
+  <div class="main-content-tasks">
+    <div id="heading">
+      <h3>Today</h3>
+      <hr style="border: 1px solid #ccc; margin: 10px 0;">
+    </div>
+
+    <div id="createTaskContainer">
+      <button id="createTaskBtn">+</button>
+      <label class="custom-field"> 
+        <input type="text" id="inputTaskName" required />
+        <span class="placeholder">To add new task press enter</span>
+      </label>
+      <div id="importanceContainer">
+        <label><input type="checkbox" class="importance" value="1">1</label>
+        <label><input type="checkbox" class="importance" value="2">2</label>
+        <label><input type="checkbox" class="importance" value="3">3</label>
+        <label><input type="checkbox" class="importance" value="4">4</label>
+        <label><input type="checkbox" class="importance" value="5">5</label>
+      </div>
+
+    <div id="dynamicallyCreatedTasks"></div>
+  </div>
+
+  <script src="tasks.js" type="module"></script>
+</body>
+</html>
