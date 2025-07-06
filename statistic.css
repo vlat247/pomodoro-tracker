@@ -994,3 +994,34 @@ label{
   height: 90px;
   width: 90px;
 }
+
+#main-content-1 {
+  width: 30%;
+  min-width: 250px;       
+  max-width: 600px;        
+  margin: 0 auto;         
+  padding: 1rem;
+  box-sizing: border-box;  
+}
+
+.plant-icon::after {
+  content: attr(data-rarity);
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 4px 6px;
+  font-size: 11px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+
+.plant-icon:hover::after {
+  opacity: 1;
+}

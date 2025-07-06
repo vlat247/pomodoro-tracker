@@ -294,18 +294,29 @@ async function loadPlants() {
   }
 }
 
+function getPlantRarity(type) {
+  const plant = plantTypes.find(p => p.name === type);
+  return plant ? plant.rarity : 'Unknown';
+}
+
+
 function renderPlant(plant, docId) {
+  const container = document.getElementById('inventory-grid');
+
   const plantElement = document.createElement("div");
   plantElement.className = `plant-icon ${plant.type}`;
   plantElement.id = `plant-${docId}`;
   plantElement.dataset.docId = docId;
+  plantElement.dataset.rarity = `Rarity: ${getPlantRarity(plant.type)}`;
+  plantElement.dataset.id = docId;
   plantElement.setAttribute("draggable", "true");
   plantElement.addEventListener("dragstart", dragStart);
+  plantElement.title = `${plant.type} – ${getPlantRarity(plant.type)}`;
 
-  const inventory = document.getElementById("inventoryModal");
 
+  // Append to inventory or grid based on isInInventory
   if (plant.isInInventory) {
-    
+    const inventory = document.getElementById("inventoryModal");
     if (inventory) {
       inventory.appendChild(plantElement);
     } else {
@@ -321,9 +332,34 @@ function renderPlant(plant, docId) {
   }
 }
 
+
+
+function getWeighetedRandomPlant(plantTypes) {
+    const totalWeight = plantTypes.reduce((sum, plant) => sum + plant.weight, 0);
+    const rand = Math.random() * totalWeight;
+
+    let runningSum = 0;
+    for (let plant of plantTypes) {
+      runningSum += plant.weight;
+      if (rand< runningSum) {
+        return plant.name;
+      }
+    }
+}
+
+const plantTypes = [
+    {name:'flower', weight: 30, rarity: 'Common' },
+    {name:'tree', weight: 30, rarity: 'Common' },
+    {name:'bush', weight: 20, rarity: 'Uncommon' },
+    {name:'cactus', weight: 10, rarity: 'Rare' },
+    {name:'flower2', weight: 10, rarity: 'Rare' },
+];
+
+
+
 function growPlant() {
-  const plantTypes = ['flower', 'tree', 'bush', 'cactus', 'flower2'];
-  const randomType = plantTypes[Math.floor(Math.random() * plantTypes.length)];
+  const randomType = getWeighetedRandomPlant(plantTypes);
+  console.log("you got:", randomType)
 
   const plantData = {
     type: randomType,
