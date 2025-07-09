@@ -10,19 +10,25 @@
 </head>
 <body class="index-page">
   <div id="main-content-1">
-      <h1>Pomodoro garden</h1>
+      <h1 id="main-title">Pomodoro garden</h1>
     <div class="custom-time">
       <label for="customMinutes">Enter minutes:</label>
       <input type="number" id="customMinutes" min="1" placeholder="e.g. 25" />
       <button id="customTimeButton">Set Timer</button>
     </div>
+    <div id="timer">
+      <span id="minutes">25</span><span id='colon'>:</span><span id="seconds">00</span>
+    </div>
+    <div class="controls">
+      <button id="startTimeBtn">Start</button>
+      <button id="pauseTimeBtn" onclick="pauseTimer()">Pause</button>
+      <button id="resetTimeBtn" onclick="resetTimer()">Reset</button>
+    </div>
+    <h2 id="thegarden">The garden:</h2>
   </div>
   
   
-  <div id="timer">
-    <span id="minutes">25</span><span id='colon'>:</span><span id="seconds">00</span>
-  </div>
-
+  
 <header class="login-header">
   <div class="buttons-container">
     <a href="statistic.html" id="statistics" class="button">Statistic</a>
@@ -54,12 +60,7 @@
 </header>
 
 
-  <div class="controls">
-    <button id="startTimeBtn">Start</button>
-    <button onclick="pauseTimer()">Pause</button>
-    <button onclick="resetTimer()">Reset</button>
-  </div>
-     <h2>My garden</h2>
+  
   <div id="garden">
  <div class="grid-wrapper">
   <div class="solid-grid">

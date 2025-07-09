@@ -1079,7 +1079,7 @@ label{
   border-radius: 15px;
   margin-left:10px;
   margin-right:10px;
-  display:flex;/* horizontally */
+  display:flex;
   align-items: center;   
 
 }
@@ -1139,3 +1139,72 @@ label{
   color: var(--objects-color);
 }
 
+/** STARS IN TASKS**/
+.star {
+  color: lightgray;
+  transition: color 0.2s;
+  font-size: 30px;
+}
+.star.filled {
+  color: gold;
+}
+.star:hover,
+.star:hover ~ .star {
+  color: lightgray; /* keep others light */
+}
+
+/* highlight the hovered star and all before it */
+.star:hover,
+.star:hover ~ .star {
+  color: lightgray;
+}
+
+/* now highlight previous stars on hover */
+.star:hover {
+  color: gold;
+}
+
+.star:hover ~ .star {
+  color: lightgray;
+}
+.star:hover,
+.star:has(~ .star:hover) {
+  color: gold;
+}
+
+#dynamicallyCreatedTasks {
+  position: relative;
+  width: auto;
+  height: auto;
+  background-color: var(--objects-color);
+  box-shadow:0 0 3px rgba(0, 0, 0, 0.5);
+  display:flex;
+  gap:10px;
+  border-radius: 15px;
+  margin-left:10px;
+  margin-right:10px;
+  display:flex;
+  align-items: flex-start;   
+  margin-top: 20px;
+  flex-direction: column;
+}
+
+#h3Tasks {
+  text-align:left;
+  color:var(--text-color);
+  margin-left:20px;
+}
+
+.taskName {
+  font-size: 14px;
+  margin: 10px;
+  padding: 10px 15px;
+  background-color: #f3f3f3;
+  border-radius: 8px;
+  display:flex;
+  align-items: center;
+  justify-content: flex-start;
+  width:100%;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+}
